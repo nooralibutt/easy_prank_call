@@ -1,3 +1,4 @@
+import 'package:easy_prank_call/easy_prank_call.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -35,12 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Text(
-          'Hello',
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
-      ),
+      body: const EasyWallpaperApp(title: 'Scary Teacher Prank'),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         tooltip: 'Increment',

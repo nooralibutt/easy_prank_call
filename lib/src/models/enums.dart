@@ -1,5 +1,5 @@
 enum PrankCallPlacement {
-  wallpaperHomeTop,
+  callSettingsBottom,
   wallpaperCategoryTop,
 }
 

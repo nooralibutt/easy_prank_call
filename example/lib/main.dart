@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _addPlacements(BuildContext context, PrankCallPlacement placement) {
     switch (placement) {
-      case PrankCallPlacement.wallpaperHomeTop:
+      case PrankCallPlacement.callSettingsBottom:
         return Container(height: 50, width: double.infinity, color: Colors.red);
       case PrankCallPlacement.wallpaperCategoryTop:
         return Container(

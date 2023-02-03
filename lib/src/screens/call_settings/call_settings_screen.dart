@@ -1,3 +1,4 @@
+import 'package:easy_prank_call/easy_prank_call.dart';
 import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
 import 'package:easy_prank_call/src/models/call_settings_model.dart';
 import 'package:easy_prank_call/src/screens/audio_call/audio_call_screen.dart';
@@ -23,6 +24,8 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = EasyPrankCallController.of(context);
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -51,6 +54,8 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
                 label: const Text('Schedule Prank Call'),
               ),
             ),
+            if (controller.placementBuilder != null)
+              controller.placementBuilder!.call(context,PrankCallPlacement.callSettingsBottom),
           ],
         ),
       ),

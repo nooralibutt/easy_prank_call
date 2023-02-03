@@ -1,4 +1,5 @@
 import 'package:easy_prank_call/src/widgets/custom_buttons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class VideoCallAcceptedContainer extends StatelessWidget {
@@ -14,19 +15,23 @@ class VideoCallAcceptedContainer extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        RoundedButton(
+        RoundedButton2(
+          iconData: CupertinoIcons.mic,
           press: () {},
-          iconSrc: "assets/icons/Icon Mic.svg",
+          color: Colors.red,
+          iconColor: Colors.white,
         ),
-        RoundedButton(
+        RoundedButton2(
+          iconData: CupertinoIcons.phone_down_fill,
           press: onPressEnd,
           color: Colors.red,
           iconColor: Colors.white,
-          iconSrc: "assets/icons/call_end.svg",
         ),
-        RoundedButton(
+        RoundedButton2(
+          iconData: CupertinoIcons.volume_down,
           press: () {},
-          iconSrc: "assets/icons/Icon Volume.svg",
+          color: Colors.red,
+          iconColor: Colors.white,
         ),
       ],
     );

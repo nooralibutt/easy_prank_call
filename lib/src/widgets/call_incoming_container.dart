@@ -1,6 +1,6 @@
 import 'package:easy_prank_call/src/utilities/size_config.dart';
-import 'package:easy_prank_call/src/widgets/call_button.dart';
 import 'package:easy_prank_call/src/widgets/custom_buttons.dart';
+import 'package:easy_prank_call/src/widgets/dial_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,20 +12,24 @@ class CallIncomingContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            CallButton(
+            DialButton(
               text: "Remind Me",
               press: () {},
               iconData: CupertinoIcons.alarm_fill,
+              isDarkMode: isDarkMode,
             ),
-            CallButton(
+            DialButton(
               text: "Message",
               press: () {},
               iconData: CupertinoIcons.chat_bubble_fill,
+              isDarkMode: isDarkMode,
             ),
           ],
         ),

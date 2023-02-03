@@ -7,9 +7,9 @@ typedef EventActionCallback = void Function(BuildContext, WallpaperEventAction);
 class EasyPrankCallController extends InheritedWidget {
   const EasyPrankCallController({
     super.key,
-    this.leadingTitle,
     required this.title,
-    this.bgImage,
+    required this.avatarImgPath,
+    required this.videoPath,
     required super.child,
     this.placementBuilder,
     this.onTapEvent,
@@ -17,14 +17,14 @@ class EasyPrankCallController extends InheritedWidget {
     required this.context,
   });
 
-  /// This [leadingTitle] will be added before main [title]
-  final String? leadingTitle;
-
   /// This is the main title text
   final String title;
 
-  /// This will be added as a background image with blur effect
-  final String? bgImage;
+  /// This is path of image that will be shown on the incoming audio call of the prankster
+  final String avatarImgPath;
+
+  /// This is path of video that will be shown on the incoming video call of the prankster
+  final String videoPath;
 
   /// [placementBuilder] is used to build your custom widget at specific places
   final PlacementBuilder? placementBuilder;

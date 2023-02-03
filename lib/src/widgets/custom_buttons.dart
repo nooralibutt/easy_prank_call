@@ -1,8 +1,8 @@
 import 'package:easy_prank_call/src/utilities/size_config.dart';
 import 'package:flutter/material.dart';
 
-class RoundedButton2 extends StatelessWidget {
-  const RoundedButton2({
+class RoundedButton extends StatelessWidget {
+  const RoundedButton({
     Key? key,
     this.size = 80,
     required this.iconData,

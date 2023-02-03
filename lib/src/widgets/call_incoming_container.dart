@@ -37,13 +37,13 @@ class CallIncomingContainer extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            RoundedButton2(
+            RoundedButton(
               iconData: CupertinoIcons.phone_down_fill,
               press: () => Navigator.pop(context),
               color: Colors.red,
               iconColor: Colors.white,
             ),
-            RoundedButton2(
+            RoundedButton(
               iconData: CupertinoIcons.phone_fill,
               press: onPressAccept,
               color: Colors.green,

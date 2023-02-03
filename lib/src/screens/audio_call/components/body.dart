@@ -1,3 +1,4 @@
+import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
 import 'package:easy_prank_call/src/screens/audio_call/components/audio_call_accepted_container.dart';
 import 'package:easy_prank_call/src/utilities/my_audio_player.dart';
 import 'package:easy_prank_call/src/utilities/my_vibrator.dart';
@@ -38,13 +39,14 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = EasyPrankCallController.of(context);
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             Text(
-              'Scary Teacher Prank',
+              controller.title,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             AnimatedOpacity(
@@ -54,9 +56,8 @@ class _BodyState extends State<Body> {
             ),
             const VerticalSpacing(),
             _isCallAccepted
-                ? const DialUserPic(image: "assets/images/calling_face.jpg")
-                : const DialUserPicAnimated(
-                    image: "assets/images/calling_face.jpg"),
+                ? DialUserPic(image: controller.avatarImgPath)
+                : DialUserPicAnimated(image: controller.avatarImgPath),
             const Spacer(),
             AnimatedOpacity(
               duration: const Duration(milliseconds: 300),

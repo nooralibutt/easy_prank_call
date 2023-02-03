@@ -61,7 +61,7 @@ class AudioCallAcceptedContainer extends StatelessWidget {
           ],
         ),
         const VerticalSpacing(),
-        RoundedButton2(
+        RoundedButton(
           iconData: CupertinoIcons.phone_down_fill,
           press: onPressEnd,
           color: Colors.red,

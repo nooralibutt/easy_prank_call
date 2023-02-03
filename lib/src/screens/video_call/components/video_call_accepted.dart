@@ -15,22 +15,22 @@ class VideoCallAcceptedContainer extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        RoundedButton2(
+        RoundedButton(
           iconData: CupertinoIcons.mic,
           press: () {},
-          color: Colors.red,
+          color: Colors.black,
           iconColor: Colors.white,
         ),
-        RoundedButton2(
+        RoundedButton(
           iconData: CupertinoIcons.phone_down_fill,
           press: onPressEnd,
           color: Colors.red,
           iconColor: Colors.white,
         ),
-        RoundedButton2(
+        RoundedButton(
           iconData: CupertinoIcons.volume_down,
           press: () {},
-          color: Colors.red,
+          color: Colors.black,
           iconColor: Colors.white,
         ),
       ],

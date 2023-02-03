@@ -5,12 +5,14 @@ import 'package:easy_prank_call/src/utilities/my_vibrator.dart';
 import 'package:easy_prank_call/src/utilities/size_config.dart';
 import 'package:easy_prank_call/src/widgets/call_incoming_container.dart';
 import 'package:easy_prank_call/src/widgets/countdown_timer.dart';
+import 'package:easy_prank_call/src/widgets/dial_user_pic.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class Body extends StatefulWidget {
+  final String videoPath;
   final bool isVibrationOn;
-  const Body(this.isVibrationOn, {super.key});
+  const Body(this.isVibrationOn, {super.key, required this.videoPath});
 
   @override
   _BodyState createState() => _BodyState();
@@ -23,15 +25,14 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
+    super.initState();
     MyAudioPlayer.instance.playRingtone();
     if (widget.isVibrationOn) MyVibrator.ringtoneVibrate();
     _videoInit();
-    super.initState();
   }
 
   _videoInit() {
-    _controller = VideoPlayerController.asset('assets/videos/teacher_video.mov')
-      ..initialize();
+    _controller = VideoPlayerController.asset(widget.videoPath)..initialize();
     _controller.setLooping(true);
   }
 
@@ -58,10 +59,7 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               )
-            : const Image(
-                image: AssetImage('assets/splash.jpg'),
-                fit: BoxFit.cover,
-              ),
+            : const DialUserPic(image: "assets/images/calling_face.jpg"),
         // Black Layer
         DecoratedBox(
             decoration: BoxDecoration(color: Colors.black.withOpacity(0.3))),

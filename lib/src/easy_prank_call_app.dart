@@ -7,14 +7,14 @@ import 'package:easy_prank_call/src/utilities/size_config.dart';
 import 'package:flutter/material.dart';
 
 class EasyPrankCallApp extends StatelessWidget {
-  /// This [leadingTitle] will be added before main [title]
-  final String? leadingTitle;
-
   /// This is the main title text
   final String title;
 
-  /// This will be added as a background image with blur effect
-  final String? bgImage;
+  /// This is path of image that will be shown on the incoming audio call of the prankster
+  final String avatarImgPath;
+
+  /// This is path of video that will be shown on the incoming video call of the prankster
+  final String videoPath;
 
   /// [placementBuilder] is used to build your custom widget at specific places
   final PlacementBuilder? placementBuilder;
@@ -28,8 +28,8 @@ class EasyPrankCallApp extends StatelessWidget {
   const EasyPrankCallApp({
     Key? key,
     required this.title,
-    this.leadingTitle,
-    this.bgImage,
+    required this.videoPath,
+    required this.avatarImgPath,
     this.onTapEvent,
     this.onSetOrDownloadWallpaper,
     this.placementBuilder,
@@ -40,12 +40,12 @@ class EasyPrankCallApp extends StatelessWidget {
     SizeConfig().init(context);
 
     return EasyPrankCallController(
-      leadingTitle: leadingTitle,
       title: title,
       placementBuilder: placementBuilder,
       onTapEvent: onTapEvent,
       context: context,
-      bgImage: bgImage,
+      avatarImgPath: avatarImgPath,
+      videoPath: videoPath,
 
       /// Package has its own navigation
       child: Navigator(
@@ -71,14 +71,14 @@ class EasyPrankCallApp extends StatelessWidget {
 
   static void launchApp(
     BuildContext context, {
-    /// This [leadingTitle] will be added before main [title]
-    final String? leadingTitle,
-
     /// This is the main title text
     required final String title,
 
-    /// This will be added as a background image with blur effect
-    final String? bgImage,
+    /// This is path of image that will be shown on the incoming audio call of the prankster
+    required final String avatarImgPath,
+
+    /// This is path of video that will be shown on the incoming video call of the prankster
+    required final String videoPath,
 
     /// [placementBuilder] is used to build your custom widget at specific places
     final PlacementBuilder? placementBuilder,
@@ -91,9 +91,9 @@ class EasyPrankCallApp extends StatelessWidget {
           fullscreenDialog: true,
           builder: (context) => Scaffold(
             body: EasyPrankCallApp(
-              leadingTitle: leadingTitle,
               title: title,
-              bgImage: bgImage,
+              avatarImgPath: avatarImgPath,
+              videoPath: videoPath,
               placementBuilder: placementBuilder,
               onTapEvent: onTapEvent,
             ),

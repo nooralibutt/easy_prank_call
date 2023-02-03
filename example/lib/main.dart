@@ -36,7 +36,11 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: const EasyPrankCallApp(title: 'Scary Teacher Prank'),
+      body: const EasyPrankCallApp(
+        title: 'Scary Teacher Prank',
+        avatarImgPath: 'assets/images/calling_face.jpg',
+        videoPath: 'assets/videos/teacher_video.mov',
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         tooltip: 'Increment',

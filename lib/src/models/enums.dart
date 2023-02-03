@@ -1,14 +1,8 @@
-enum PrankCallPlacement {
-  callSettingsBottom,
-  wallpaperCategoryTop,
-}
+enum PrankCallPlacement { callSettingsBottom }
 
 enum PrankCallEventAction {
-  openWallpaper,
-  downloadWallpaper,
-  swipeWallpaper,
-  openCategory,
-  addToFavorite,
-  wallpaperHomeScrolling,
-  setWallpaper,
+  callAccept,
+  callDecline,
+  callEnd,
+  callScreenEvent,
 }

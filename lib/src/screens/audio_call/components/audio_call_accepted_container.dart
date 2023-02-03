@@ -1,3 +1,5 @@
+import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
+import 'package:easy_prank_call/src/models/enums.dart';
 import 'package:easy_prank_call/src/utilities/size_config.dart';
 import 'package:easy_prank_call/src/widgets/custom_buttons.dart';
 import 'package:easy_prank_call/src/widgets/dial_button.dart';
@@ -26,37 +28,37 @@ class AudioCallAcceptedContainer extends StatelessWidget {
               iconData: Icons.mic,
               isDarkMode: isDarkMode,
               text: "Audio",
-              press: () {},
+              press: () => onTap(context),
             ),
             DialButton(
               iconData: CupertinoIcons.volume_down,
               isDarkMode: isDarkMode,
               text: "Microphone",
-              press: () {},
+              press: () => onTap(context),
             ),
             DialButton(
               iconData: CupertinoIcons.video_camera,
               isDarkMode: isDarkMode,
               text: "Video",
-              press: () {},
+              press: () => onTap(context),
             ),
             DialButton(
               iconData: CupertinoIcons.text_bubble,
               isDarkMode: isDarkMode,
               text: "Message",
-              press: () {},
+              press: () => onTap(context),
             ),
             DialButton(
               iconData: CupertinoIcons.person_add,
               isDarkMode: isDarkMode,
               text: "Add contact",
-              press: () {},
+              press: () => onTap(context),
             ),
             DialButton(
               iconData: Icons.voicemail,
               isDarkMode: isDarkMode,
               text: "Voice mail",
-              press: () {},
+              press: () => onTap(context),
             ),
           ],
         ),
@@ -69,5 +71,13 @@ class AudioCallAcceptedContainer extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void onTap(BuildContext context) {
+    final controller = EasyPrankCallController.of(context);
+    if (controller.placementBuilder != null) {
+      controller.onTapEvent!
+          .call(context, PrankCallEventAction.callScreenEvent);
+    }
   }
 }

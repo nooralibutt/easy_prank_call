@@ -1,3 +1,5 @@
+import 'package:easy_prank_call/easy_prank_call.dart';
+import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
 import 'package:easy_prank_call/src/screens/video_call/components/camera_preview_widget.dart';
 import 'package:easy_prank_call/src/screens/video_call/components/video_call_accepted.dart';
 import 'package:easy_prank_call/src/utilities/my_audio_player.dart';
@@ -60,7 +62,6 @@ class _BodyState extends State<Body> {
                 ),
               )
             : const DialUserPic(image: "assets/images/calling_face.jpg"),
-        // Black Layer
         DecoratedBox(
             decoration: BoxDecoration(color: Colors.black.withOpacity(0.3))),
         Padding(
@@ -130,26 +131,36 @@ class _BodyState extends State<Body> {
     }
   }
 
-  _stopRingtone() {
+  void _stopRingtone() {
     MyAudioPlayer.instance.stopRingtone();
     MyVibrator.stop();
   }
 
-  _onPressedEnd() {
+  void _onPressedEnd() {
     setState(() {
       _isCallEnded = true;
       _controller.pause();
     });
 
     Future.delayed(const Duration(seconds: 3), () => Navigator.pop(context));
+
+    final controller = EasyPrankCallController.of(context);
+    if (controller.placementBuilder != null) {
+      controller.onTapEvent!.call(context, PrankCallEventAction.callEnd);
+    }
   }
 
-  _onPressedAccept() {
+  void _onPressedAccept() {
     _stopRingtone();
 
     setState(() {
       _isCallAccepted = true;
       _controller.play();
     });
+
+    final controller = EasyPrankCallController.of(context);
+    if (controller.placementBuilder != null) {
+      controller.onTapEvent!.call(context, PrankCallEventAction.callAccept);
+    }
   }
 }

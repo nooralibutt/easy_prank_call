@@ -64,17 +64,11 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
   }
 
   Future<void> _pressedCall() async {
-    bool canSetOrDownload = true;
     if (_durationSelected != const Duration(seconds: 0)) {
-      final controller = EasyPrankCallController.of(context);
-
-      if (controller.onDialCall != null) {
-        canSetOrDownload = await controller.onDialCall!.call(context);
-      }
       // NotificationManager.instance
       //     .scheduleNotificationOnScheduleCall(_durationSelected);
     }
-    if (canSetOrDownload) _moveToCallScreen();
+    _moveToCallScreen();
   }
 
   void _moveToCallScreen() async {

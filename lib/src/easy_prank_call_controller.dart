@@ -13,7 +13,6 @@ class EasyPrankCallController extends InheritedWidget {
     required super.child,
     this.placementBuilder,
     this.onTapEvent,
-    this.onDialCall,
     required this.context,
   });
 
@@ -31,9 +30,6 @@ class EasyPrankCallController extends InheritedWidget {
 
   /// [onTapEvent] will be call on every event preformed by the user
   final EventActionCallback? onTapEvent;
-
-  /// [onDialCall] will be call when user set or download wallpaper
-  final Future<bool> Function(BuildContext)? onDialCall;
 
   final BuildContext context;
 

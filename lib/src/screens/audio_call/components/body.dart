@@ -1,3 +1,4 @@
+import 'package:easy_prank_call/easy_prank_call.dart';
 import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
 import 'package:easy_prank_call/src/screens/audio_call/components/audio_call_accepted_container.dart';
 import 'package:easy_prank_call/src/utilities/my_audio_player.dart';
@@ -107,11 +108,21 @@ class _BodyState extends State<Body> {
     setState(() => _isCallEnded = true);
 
     Future.delayed(const Duration(seconds: 3), () => Navigator.pop(context));
+
+    final controller = EasyPrankCallController.of(context);
+    if (controller.placementBuilder != null) {
+      controller.onTapEvent!.call(context, PrankCallEventAction.callEnd);
+    }
   }
 
   void _onPressedAccept() {
     _stopRingtone();
 
     setState(() => _isCallAccepted = true);
+
+    final controller = EasyPrankCallController.of(context);
+    if (controller.placementBuilder != null) {
+      controller.onTapEvent!.call(context, PrankCallEventAction.callAccept);
+    }
   }
 }

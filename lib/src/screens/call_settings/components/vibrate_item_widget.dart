@@ -11,7 +11,7 @@ class VibrateItemWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _VibrateItemWidgetState createState() => _VibrateItemWidgetState();
+  State<VibrateItemWidget> createState() => _VibrateItemWidgetState();
 }
 
 class _VibrateItemWidgetState extends State<VibrateItemWidget> {

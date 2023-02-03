@@ -9,7 +9,7 @@ class TimerSettingItemWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _TimerSettingItemWidgetState createState() => _TimerSettingItemWidgetState();
+  State<TimerSettingItemWidget> createState() => _TimerSettingItemWidgetState();
 }
 
 class _TimerSettingItemWidgetState extends State<TimerSettingItemWidget> {

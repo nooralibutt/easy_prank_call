@@ -8,7 +8,8 @@ class CountDownTimer extends StatefulWidget {
 
   final VoidCallback? whenTimeExpires;
 
-  State createState() => _CountDownTimerState();
+  @override
+  State<CountDownTimer> createState() => _CountDownTimerState();
 }
 
 class _CountDownTimerState extends State<CountDownTimer>

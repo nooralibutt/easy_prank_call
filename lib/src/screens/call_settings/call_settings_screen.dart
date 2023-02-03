@@ -14,7 +14,7 @@ class CallSettingsScreen extends StatefulWidget {
   const CallSettingsScreen({super.key});
 
   @override
-  _CallSettingsScreenState createState() => _CallSettingsScreenState();
+  State<CallSettingsScreen> createState() => _CallSettingsScreenState();
 }
 
 class _CallSettingsScreenState extends State<CallSettingsScreen> {
@@ -55,7 +55,8 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
               ),
             ),
             if (controller.placementBuilder != null)
-              controller.placementBuilder!.call(context,PrankCallPlacement.callSettingsBottom),
+              controller.placementBuilder!
+                  .call(context, PrankCallPlacement.callSettingsBottom),
           ],
         ),
       ),

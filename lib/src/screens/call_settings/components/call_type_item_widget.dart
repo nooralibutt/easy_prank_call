@@ -11,7 +11,7 @@ class CallTypeItemWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CallTypeItemWidgetState createState() => _CallTypeItemWidgetState();
+  State<CallTypeItemWidget> createState() => _CallTypeItemWidgetState();
 }
 
 class _CallTypeItemWidgetState extends State<CallTypeItemWidget> {

@@ -1,7 +1,8 @@
 name: easy_prank_call
 description: A new Flutter package project.
 version: 1.0.0
-homepage:
+repository: https://github.com/nooralibutt/easy_prank_call
+homepage: https://github.com/nooralibutt/easy_prank_call
 
 environment:
   sdk: '>=2.19.0 <3.0.0'

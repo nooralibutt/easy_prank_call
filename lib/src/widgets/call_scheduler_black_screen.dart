@@ -14,7 +14,7 @@ class CallSchedulerBlackScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CallSchedulerBlackScreenState createState() =>
+  State<CallSchedulerBlackScreen> createState() =>
       _CallSchedulerBlackScreenState();
 }
 

@@ -1,3 +1,4 @@
+import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
 import 'package:easy_prank_call/src/models/call_settings_model.dart';
 import 'package:easy_prank_call/src/screens/audio_call/audio_call_screen.dart';
 import 'package:easy_prank_call/src/screens/call_settings/components/call_type_item_widget.dart';
@@ -56,12 +57,18 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
     );
   }
 
-  void _pressedCall() {
+  Future<void> _pressedCall() async {
+    bool canSetOrDownload = true;
     if (_durationSelected != const Duration(seconds: 0)) {
+      final controller = EasyPrankCallController.of(context);
+
+      if (controller.onDialCall != null) {
+        canSetOrDownload = await controller.onDialCall!.call(context);
+      }
       // NotificationManager.instance
       //     .scheduleNotificationOnScheduleCall(_durationSelected);
     }
-    _moveToCallScreen();
+    if (canSetOrDownload) _moveToCallScreen();
   }
 
   void _moveToCallScreen() async {

@@ -1,8 +1,8 @@
 import 'package:easy_prank_call/src/models/enums.dart';
 import 'package:flutter/material.dart';
 
-typedef PlacementBuilder = Widget Function(BuildContext, WallpaperPlacement);
-typedef EventActionCallback = void Function(BuildContext, WallpaperEventAction);
+typedef PlacementBuilder = Widget Function(BuildContext, PrankCallPlacement);
+typedef EventActionCallback = void Function(BuildContext, PrankCallEventAction);
 
 class EasyPrankCallController extends InheritedWidget {
   const EasyPrankCallController({
@@ -13,7 +13,7 @@ class EasyPrankCallController extends InheritedWidget {
     required super.child,
     this.placementBuilder,
     this.onTapEvent,
-    this.onSetOrDownloadWallpaper,
+    this.onDialCall,
     required this.context,
   });
 
@@ -32,8 +32,8 @@ class EasyPrankCallController extends InheritedWidget {
   /// [onTapEvent] will be call on every event preformed by the user
   final EventActionCallback? onTapEvent;
 
-  /// [onSetOrDownloadWallpaper] will be call when user set or download wallpaper
-  final Future<bool> Function(BuildContext)? onSetOrDownloadWallpaper;
+  /// [onDialCall] will be call when user set or download wallpaper
+  final Future<bool> Function(BuildContext)? onDialCall;
 
   final BuildContext context;
 

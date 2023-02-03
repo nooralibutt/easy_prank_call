@@ -22,8 +22,8 @@ class EasyPrankCallApp extends StatelessWidget {
   /// [onTapEvent] will be call on every event preformed by the user
   final EventActionCallback? onTapEvent;
 
-  /// [onSetOrDownloadWallpaper] will be call when user set or download wallpaper
-  final Future<bool> Function(BuildContext)? onSetOrDownloadWallpaper;
+  /// [onDialCall] will be call when user set or download wallpaper
+  final Future<bool> Function(BuildContext)? onDialCall;
 
   const EasyPrankCallApp({
     Key? key,
@@ -31,7 +31,7 @@ class EasyPrankCallApp extends StatelessWidget {
     required this.videoPath,
     required this.avatarImgPath,
     this.onTapEvent,
-    this.onSetOrDownloadWallpaper,
+    this.onDialCall,
     this.placementBuilder,
   }) : super(key: key);
 
@@ -44,7 +44,7 @@ class EasyPrankCallApp extends StatelessWidget {
       placementBuilder: placementBuilder,
       onTapEvent: onTapEvent,
       context: context,
-      avatarImgPath: avatarImgPath,
+      avatarImgPath: avatarImgPath, onDialCall: onDialCall,
       videoPath: videoPath,
 
       /// Package has its own navigation

@@ -1,9 +1,9 @@
-enum WallpaperPlacement {
+enum PrankCallPlacement {
   wallpaperHomeTop,
   wallpaperCategoryTop,
 }
 
-enum WallpaperEventAction {
+enum PrankCallEventAction {
   openWallpaper,
   downloadWallpaper,
   swipeWallpaper,

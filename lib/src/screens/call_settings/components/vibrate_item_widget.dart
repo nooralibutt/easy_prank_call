@@ -28,19 +28,19 @@ class _VibrateItemWidgetState extends State<VibrateItemWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
-      child: Material(
-        // color: AppTheme.primaryDark,
-        child: InkWell(
-          onTap: () {
-            setState(() => _isVibrating = !_isVibrating);
-            widget.onChange(_isVibrating);
-          },
-          child: ListTile(
-            title: const Text('Vibration'),
-            leading: const Icon(Icons.vibration),
-            trailing: Text(_isVibrating ? 'On' : 'Off'),
-          ),
+      child: ListTile(
+        tileColor: Theme.of(context).cardColor,
+        onTap: () {
+          setState(() => _isVibrating = !_isVibrating);
+          widget.onChange(_isVibrating);
+        },
+        dense: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
+        title: const Text('Vibration'),
+        leading: const Icon(Icons.vibration),
+        trailing: Text(_isVibrating ? 'On' : 'Off'),
       ),
     );
   }

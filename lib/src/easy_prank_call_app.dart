@@ -6,7 +6,7 @@ import 'package:easy_prank_call/src/screens/video_call/video_call_screen.dart';
 import 'package:easy_prank_call/src/utilities/size_config.dart';
 import 'package:flutter/material.dart';
 
-class EasyWallpaperApp extends StatelessWidget {
+class EasyPrankCallApp extends StatelessWidget {
   /// This [leadingTitle] will be added before main [title]
   final String? leadingTitle;
 
@@ -25,7 +25,7 @@ class EasyWallpaperApp extends StatelessWidget {
   /// [onSetOrDownloadWallpaper] will be call when user set or download wallpaper
   final Future<bool> Function(BuildContext)? onSetOrDownloadWallpaper;
 
-  const EasyWallpaperApp({
+  const EasyPrankCallApp({
     Key? key,
     required this.title,
     this.leadingTitle,
@@ -39,7 +39,7 @@ class EasyWallpaperApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
 
-    return EasyWallpaperController(
+    return EasyPrankCallController(
       leadingTitle: leadingTitle,
       title: title,
       placementBuilder: placementBuilder,
@@ -90,7 +90,7 @@ class EasyWallpaperApp extends StatelessWidget {
         MaterialPageRoute(
           fullscreenDialog: true,
           builder: (context) => Scaffold(
-            body: EasyWallpaperApp(
+            body: EasyPrankCallApp(
               leadingTitle: leadingTitle,
               title: title,
               bgImage: bgImage,

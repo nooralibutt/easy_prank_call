@@ -14,38 +14,47 @@ class AudioCallAcceptedContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.dark;
+
     return Column(
       children: [
         Wrap(
           alignment: WrapAlignment.spaceBetween,
           children: [
             DialButton(
-              iconSrc: "assets/icons/Icon Mic.svg",
+              iconData: Icons.mic,
+              isDarkMode: isDarkMode,
               text: "Audio",
               press: () {},
             ),
             DialButton(
-              iconSrc: "assets/icons/Icon Volume.svg",
+              iconData: CupertinoIcons.volume_down,
+              isDarkMode: isDarkMode,
               text: "Microphone",
               press: () {},
             ),
             DialButton(
-              iconSrc: "assets/icons/Icon Video.svg",
+              iconData: CupertinoIcons.video_camera,
+              isDarkMode: isDarkMode,
               text: "Video",
               press: () {},
             ),
             DialButton(
-              iconSrc: "assets/icons/Icon Message.svg",
+              iconData: CupertinoIcons.text_bubble,
+              isDarkMode: isDarkMode,
               text: "Message",
               press: () {},
             ),
             DialButton(
-              iconSrc: "assets/icons/Icon User.svg",
+              iconData: CupertinoIcons.person_add,
+              isDarkMode: isDarkMode,
               text: "Add contact",
               press: () {},
             ),
             DialButton(
-              iconSrc: "assets/icons/Icon Voicemail.svg",
+              iconData: Icons.voicemail,
+              isDarkMode: isDarkMode,
               text: "Voice mail",
               press: () {},
             ),

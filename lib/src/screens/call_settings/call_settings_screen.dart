@@ -23,12 +23,19 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Call Settings")),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Text(
+              'Call Settings',
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineMedium!
+                  .copyWith(fontWeight: FontWeight.bold),
+            ),
             TimerSettingItemWidget(
                 onChange: (duration) => _durationSelected = duration),
             CallTypeItemWidget(onChange: (type) => _typeSelected = type),

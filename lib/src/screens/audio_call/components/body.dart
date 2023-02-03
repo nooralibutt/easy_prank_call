@@ -45,10 +45,7 @@ class _BodyState extends State<Body> {
           children: [
             Text(
               'Scary Teacher Prank',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline4!
-                  .copyWith(color: Colors.white),
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             AnimatedOpacity(
               duration: const Duration(milliseconds: 300),
@@ -94,30 +91,26 @@ class _BodyState extends State<Body> {
     if (_isCallEnded) {
       return const Text('call ending...');
     } else if (_isCallAccepted) {
-      return CountDownTimer();
+      return const CountDownTimer();
     } else {
       return const Text("Calling…");
     }
   }
 
-  _stopRingtone() {
+  void _stopRingtone() {
     MyAudioPlayer.instance.stopRingtone();
     MyVibrator.stop();
   }
 
-  _onPressedEnd() {
-    setState(() {
-      _isCallEnded = true;
-    });
+  void _onPressedEnd() {
+    setState(() => _isCallEnded = true);
 
     Future.delayed(const Duration(seconds: 3), () => Navigator.pop(context));
   }
 
-  _onPressedAccept() {
+  void _onPressedAccept() {
     _stopRingtone();
 
-    setState(() {
-      _isCallAccepted = true;
-    });
+    setState(() => _isCallAccepted = true);
   }
 }

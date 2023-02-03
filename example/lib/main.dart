@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: const EasyWallpaperApp(title: 'Scary Teacher Prank'),
+      body: const EasyPrankCallApp(title: 'Scary Teacher Prank'),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         tooltip: 'Increment',

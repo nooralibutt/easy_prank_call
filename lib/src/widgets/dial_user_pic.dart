@@ -5,7 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 class DialUserPic extends StatelessWidget {
   const DialUserPic({
     Key? key,
-    this.size = 192,
+    this.size = 150,
     required this.image,
   }) : super(key: key);
 
@@ -25,7 +25,7 @@ class DialUserPic extends StatelessWidget {
             Colors.white.withOpacity(0.02),
             Colors.white.withOpacity(0.05)
           ],
-          stops: [.5, 1],
+          stops: const [.5, 1],
         ),
       ),
       child: ClipRRect(
@@ -42,7 +42,7 @@ class DialUserPic extends StatelessWidget {
 class DialUserPicAnimated extends StatelessWidget {
   const DialUserPicAnimated({
     Key? key,
-    this.size = 192,
+    this.size = 150,
     required this.image,
   }) : super(key: key);
 
@@ -64,14 +64,11 @@ class DialUserPicAnimated extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.center,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(100)),
-                child: Image.asset(
-                  image,
-                  fit: BoxFit.cover,
-                ),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(100)),
+              child: Image.asset(
+                image,
+                fit: BoxFit.cover,
               ),
             ),
           ),

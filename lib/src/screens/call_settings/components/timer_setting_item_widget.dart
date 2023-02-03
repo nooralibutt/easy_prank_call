@@ -19,21 +19,21 @@ class _TimerSettingItemWidgetState extends State<TimerSettingItemWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
-      child: Material(
-        // color: AppTheme.primaryDark,
-        child: InkWell(
-          onTap: () => _showTimerBottomSheet(context),
-          child: ListTile(
-            title: const Text('Timer'),
-            leading: const Icon(Icons.timer),
-            trailing: Text(_timeSelected.toTimeLater()),
-          ),
+      child: ListTile(
+        tileColor: Theme.of(context).cardColor,
+        onTap: () => _showTimerBottomSheet(context),
+        dense: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
+        title: const Text('Timer'),
+        leading: const Icon(Icons.timer),
+        trailing: Text(_timeSelected.toTimeLater()),
       ),
     );
   }
 
-  _showTimerBottomSheet(context) async {
+  void _showTimerBottomSheet(BuildContext context) async {
     final selectedItem = await showModalBottomSheet<Duration>(
         isScrollControlled: true,
         context: context,
@@ -56,7 +56,8 @@ class _TimerSettingItemWidgetState extends State<TimerSettingItemWidget> {
             child: Wrap(
                 children: list.map((item) {
               return ListTile(
-                leading: const Icon(Icons.timer, color: Colors.white),
+                dense: true,
+                leading: const Icon(Icons.timer),
                 title: Text(item.toTimeLater()),
                 onTap: () => Navigator.pop(context, item),
               );

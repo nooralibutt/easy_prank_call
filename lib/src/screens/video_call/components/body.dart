@@ -58,8 +58,8 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               )
-            : Image.asset(
-                'assets/splash.jpg',
+            : const Image(
+                image: AssetImage('assets/splash.jpg'),
                 fit: BoxFit.cover,
               ),
         // Black Layer
@@ -75,7 +75,7 @@ class _BodyState extends State<Body> {
                   'Scary Teacher Prank',
                   style: Theme.of(context)
                       .textTheme
-                      .headline3!
+                      .displaySmall!
                       .copyWith(color: Colors.white),
                 ),
                 const VerticalSpacing(of: 10),
@@ -85,7 +85,7 @@ class _BodyState extends State<Body> {
                   child: _getCallStatus(),
                 ),
                 const Spacer(),
-                Align(
+                const Align(
                   alignment: Alignment.bottomLeft,
                   child: CameraApp(),
                 ),

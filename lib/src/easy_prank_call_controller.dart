@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 typedef PlacementBuilder = Widget Function(BuildContext, WallpaperPlacement);
 typedef EventActionCallback = void Function(BuildContext, WallpaperEventAction);
 
-class EasyWallpaperController extends InheritedWidget {
-  const EasyWallpaperController({
+class EasyPrankCallController extends InheritedWidget {
+  const EasyPrankCallController({
     super.key,
     this.leadingTitle,
     required this.title,
@@ -37,18 +37,18 @@ class EasyWallpaperController extends InheritedWidget {
 
   final BuildContext context;
 
-  static EasyWallpaperController? maybeOf(BuildContext context) {
+  static EasyPrankCallController? maybeOf(BuildContext context) {
     return context
-        .dependOnInheritedWidgetOfExactType<EasyWallpaperController>();
+        .dependOnInheritedWidgetOfExactType<EasyPrankCallController>();
   }
 
-  static EasyWallpaperController of(BuildContext context) {
-    final EasyWallpaperController? result = maybeOf(context);
+  static EasyPrankCallController of(BuildContext context) {
+    final EasyPrankCallController? result = maybeOf(context);
     assert(result != null, 'No controller found in context');
     return result!;
   }
 
   @override
-  bool updateShouldNotify(EasyWallpaperController oldWidget) =>
+  bool updateShouldNotify(EasyPrankCallController oldWidget) =>
       title != oldWidget.title;
 }

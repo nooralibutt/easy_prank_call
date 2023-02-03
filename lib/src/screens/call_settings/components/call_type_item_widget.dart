@@ -21,16 +21,16 @@ class _CallTypeItemWidgetState extends State<CallTypeItemWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
-      child: Material(
-        // color: AppTheme.primaryDark,
-        child: InkWell(
-          onTap: () => _showTimerBottomSheet(context),
-          child: ListTile(
-            title: const Text('Call Type'),
-            leading: Icon(_getIcon(_typeSelected)),
-            trailing: Text(_getTextStr(_typeSelected)),
-          ),
+      child: ListTile(
+        tileColor: Theme.of(context).cardColor,
+        onTap: () => _showTimerBottomSheet(context),
+        dense: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
+        title: const Text('Call Type'),
+        leading: Icon(_getIcon(_typeSelected)),
+        trailing: Text(_getTextStr(_typeSelected)),
       ),
     );
   }
@@ -41,7 +41,7 @@ class _CallTypeItemWidgetState extends State<CallTypeItemWidget> {
   static IconData _getIcon(CallType type) =>
       type == CallType.audio ? Icons.call : Icons.video_call;
 
-  _showTimerBottomSheet(context) async {
+  void _showTimerBottomSheet(context) async {
     final selectedItem = await showModalBottomSheet<CallType>(
         isScrollControlled: true,
         context: context,
@@ -51,7 +51,7 @@ class _CallTypeItemWidgetState extends State<CallTypeItemWidget> {
             child: Wrap(
                 children: CallType.values.map((item) {
               return ListTile(
-                leading: Icon(_getIcon(item), color: Colors.white),
+                leading: Icon(_getIcon(item)),
                 title: Text(_getTextStr(item)),
                 onTap: () => Navigator.pop(context, item),
               );

@@ -1,6 +1,25 @@
+import 'dart:async';
+
+import 'package:easy_ads_flutter/easy_ads_flutter.dart';
+import 'package:easy_prank_call/easy_prank_call.dart';
+import 'package:example/test_ad_id_manager.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await EasyAds.instance.initialize(
+    const TestAdIdManager(),
+    fbiOSAdvertiserTrackingEnabled: true,
+    fbTestMode: true,
+    unityTestMode: true,
+    isAgeRestrictedUserForApplovin: false,
+    admobConfiguration: RequestConfiguration(
+        testDeviceIds: [], maxAdContentRating: MaxAdContentRating.pg),
+    adMobAdRequest:
+        const AdRequest(nonPersonalizedAds: false, keywords: <String>[]),
+  );
   runApp(const MyApp());
 }
 
@@ -35,11 +54,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Text(
-          'Hello',
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
+      body: EasyPrankCallApp(
+        title: 'Scary Teacher Prank',
+        avatarImgPath: 'assets/images/calling_face.jpg',
+        videoPath: 'assets/videos/teacher_video.mov',
+        placementBuilder: _addPlacements,
+        onTapEvent: _onTapEvent,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -47,5 +67,24 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  Widget _addPlacements(BuildContext context, PrankCallPlacement placement) {
+    switch (placement) {
+      case PrankCallPlacement.callSettingsBottom:
+        return Container(height: 50, width: double.infinity, color: Colors.red);
+      default:
+        return const SizedBox();
+    }
+  }
+
+  void _onTapEvent(BuildContext context, PrankCallEventAction eventAction) {
+    printLog(eventAction.name);
+  }
+
+  void printLog(String str) {
+    if (kDebugMode) {
+      print(str);
+    }
   }
 }

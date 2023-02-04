@@ -1,7 +1,8 @@
 name: easy_prank_call
 description: A new Flutter package project.
-version: 0.0.1
-homepage:
+version: 1.0.0
+repository: https://github.com/nooralibutt/easy_prank_call
+homepage: https://github.com/nooralibutt/easy_prank_call
 
 environment:
   sdk: '>=2.19.0 <3.0.0'
@@ -10,6 +11,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  camera: ^0.10.3
+  audioplayers: ^0.20.1
+  flutter_spinkit: ^5.1.0
+  video_player: ^2.5.1
+  vibration: ^1.7.6
 
 dev_dependencies:
   flutter_test:
@@ -18,3 +24,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+
+  assets:
+    - assets/
+    - assets/audio/

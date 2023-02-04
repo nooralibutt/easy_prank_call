@@ -11,6 +11,9 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.5
+  easy_ads_flutter: ^2.0.1
+  easy_prank_call:
+    path: ../
 
 dev_dependencies:
   flutter_test:
@@ -21,3 +24,8 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/images/
+    - assets/videos/

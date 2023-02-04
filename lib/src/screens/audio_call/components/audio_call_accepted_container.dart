@@ -75,7 +75,7 @@ class AudioCallAcceptedContainer extends StatelessWidget {
 
   void onTap(BuildContext context) {
     final controller = EasyPrankCallController.of(context);
-    if (controller.placementBuilder != null) {
+    if (controller.onTapEvent != null) {
       controller.onTapEvent!
           .call(context, PrankCallEventAction.callScreenEvent);
     }

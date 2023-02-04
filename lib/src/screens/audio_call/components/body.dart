@@ -110,7 +110,7 @@ class _BodyState extends State<Body> {
     Future.delayed(const Duration(seconds: 3), () => Navigator.pop(context));
 
     final controller = EasyPrankCallController.of(context);
-    if (controller.placementBuilder != null) {
+    if (controller.onTapEvent != null) {
       controller.onTapEvent!.call(context, PrankCallEventAction.callEnd);
     }
   }
@@ -121,7 +121,7 @@ class _BodyState extends State<Body> {
     setState(() => _isCallAccepted = true);
 
     final controller = EasyPrankCallController.of(context);
-    if (controller.placementBuilder != null) {
+    if (controller.onTapEvent != null) {
       controller.onTapEvent!.call(context, PrankCallEventAction.callAccept);
     }
   }

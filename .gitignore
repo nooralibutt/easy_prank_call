@@ -73,5 +73,6 @@ build/
 !**/ios/**/default.mode2v3
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
-Dart_Packages.xml
-Flutter_Plugins.xml
+.idea/libraries/Dart_SDK.xml
+.idea/modules.xml
+.idea/.gitignore

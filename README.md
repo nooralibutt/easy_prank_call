@@ -8,6 +8,8 @@
 
 **Show some 💙, 👍 the package & ⭐️ the repo to support the project**
 
+You can schedule a prank audio and video call with this package.
+
 ## Features
 - Support Incoming Audio call
 - Support incoming video call

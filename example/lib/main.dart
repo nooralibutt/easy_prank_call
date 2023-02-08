@@ -50,11 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: Text(widget.title)),
       body: EasyPrankCallApp(
-        title: 'Scary Teacher Prank',
+        title: 'Teacher Prank',
         avatarImgPath: 'assets/images/calling_face.jpg',
         videoPath: 'assets/videos/teacher_video.mov',
         placementBuilder: _addPlacements,

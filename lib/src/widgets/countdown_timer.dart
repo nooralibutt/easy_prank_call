@@ -62,16 +62,14 @@ class _CountDownTimerState extends State<CountDownTimer>
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: AnimatedBuilder(
-            animation: _controller,
-            builder: (_, Widget? child) {
-              return Text(
-                timerDisplayString,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium!
-                    .copyWith(color: Colors.white),
-              );
-            }));
+      child: AnimatedBuilder(
+          animation: _controller,
+          builder: (_, Widget? child) {
+            return Text(
+              timerDisplayString,
+              style: Theme.of(context).textTheme.bodyMedium,
+            );
+          }),
+    );
   }
 }

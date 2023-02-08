@@ -12,9 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class Body extends StatefulWidget {
-  final String videoPath;
+  final String? videoPath;
   final bool isVibrationOn;
-  const Body(this.isVibrationOn, {super.key, required this.videoPath});
+  const Body(this.isVibrationOn, {super.key, this.videoPath});
 
   @override
   State<Body> createState() => _BodyState();
@@ -23,45 +23,49 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   bool _isCallAccepted = false;
   bool _isCallEnded = false;
-  late VideoPlayerController _controller;
+  VideoPlayerController? _videoController;
 
   @override
   void initState() {
     super.initState();
     MyAudioPlayer.instance.playRingtone();
     if (widget.isVibrationOn) MyVibrator.ringtoneVibrate();
-    _videoInit();
+    if (widget.videoPath != null && widget.videoPath!.isNotEmpty) _videoInit();
   }
 
-  _videoInit() {
-    _controller = VideoPlayerController.asset(widget.videoPath)..initialize();
-    _controller.setLooping(true);
+  void _videoInit() {
+    _videoController = VideoPlayerController.asset(widget.videoPath!)
+      ..initialize();
+    _videoController?.setLooping(true);
   }
 
   @override
   void dispose() {
     _stopRingtone();
-    _controller.dispose();
+    _videoController?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final controller = EasyPrankCallController.of(context);
     return Stack(
       fit: StackFit.expand,
       children: [
-        _controller.value.isInitialized && _isCallAccepted
+        _videoController != null &&
+                _videoController!.value.isInitialized &&
+                _isCallAccepted
             ? SizedBox.expand(
                 child: FittedBox(
                   fit: BoxFit.cover,
                   child: SizedBox(
-                    width: _controller.value.size.width,
-                    height: _controller.value.size.height,
-                    child: VideoPlayer(_controller),
+                    width: _videoController?.value.size.width,
+                    height: _videoController?.value.size.height,
+                    child: VideoPlayer(_videoController!),
                   ),
                 ),
               )
-            : const DialUserPic(image: "assets/images/calling_face.jpg"),
+            : DialUserPic(image: controller.avatarImgPath),
         DecoratedBox(
             decoration: BoxDecoration(color: Colors.black.withOpacity(0.3))),
         Padding(
@@ -71,7 +75,7 @@ class _BodyState extends State<Body> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Scary Teacher Prank',
+                  controller.title,
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall!
@@ -139,7 +143,7 @@ class _BodyState extends State<Body> {
   void _onPressedEnd() {
     setState(() {
       _isCallEnded = true;
-      _controller.pause();
+      _videoController?.pause();
     });
 
     Future.delayed(const Duration(seconds: 3), () => Navigator.pop(context));
@@ -155,7 +159,7 @@ class _BodyState extends State<Body> {
 
     setState(() {
       _isCallAccepted = true;
-      _controller.play();
+      _videoController?.play();
     });
 
     final controller = EasyPrankCallController.of(context);

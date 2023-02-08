@@ -14,7 +14,7 @@ class EasyPrankCallApp extends StatelessWidget {
   final String avatarImgPath;
 
   /// This is path of video that will be shown on the incoming video call of the prankster
-  final String videoPath;
+  final String? videoPath;
 
   /// [placementBuilder] is used to build your custom widget at specific places
   final PlacementBuilder? placementBuilder;
@@ -25,7 +25,7 @@ class EasyPrankCallApp extends StatelessWidget {
   const EasyPrankCallApp({
     Key? key,
     required this.title,
-    required this.videoPath,
+    this.videoPath,
     required this.avatarImgPath,
     this.onTapEvent,
     this.placementBuilder,

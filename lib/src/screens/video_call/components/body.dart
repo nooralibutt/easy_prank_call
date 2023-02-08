@@ -30,13 +30,15 @@ class _BodyState extends State<Body> {
     super.initState();
     MyAudioPlayer.instance.playRingtone();
     if (widget.isVibrationOn) MyVibrator.ringtoneVibrate();
-    if (widget.videoPath != null && widget.videoPath!.isNotEmpty) _videoInit();
+    _videoInit();
   }
 
   void _videoInit() {
-    _videoController = VideoPlayerController.asset(widget.videoPath!)
-      ..initialize();
-    _videoController?.setLooping(true);
+    if (widget.videoPath != null && widget.videoPath!.isNotEmpty) {
+      _videoController = VideoPlayerController.asset(widget.videoPath!)
+        ..initialize();
+      _videoController?.setLooping(true);
+    }
   }
 
   @override

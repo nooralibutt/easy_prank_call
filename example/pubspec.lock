@@ -17,14 +17,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.10.0"
-  audience_network:
-    dependency: transitive
-    description:
-      name: audience_network
-      sha256: aa2c6a2ad7b811e0b509b5c6b6a23793a1d0197b8e797af23f0c24805f8b51da
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.4"
   audioplayers:
     dependency: transitive
     description:
@@ -141,10 +133,18 @@ packages:
     dependency: "direct main"
     description:
       name: easy_ads_flutter
-      sha256: ad07afcfbffa83fc69b3fa354940d6f550da887f1c14cb2aa1bd189c2f093c2f
+      sha256: "01100a6ecdf466f990d2d2ee41280e4744d90a97c66c3fc3e75608f62164f4ac"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.1.0"
+  easy_audience_network:
+    dependency: transitive
+    description:
+      name: easy_audience_network
+      sha256: "3bd9f76785163e898683cf59d2c1799f8cd6d04afcd601dd981ced03763bbe93"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.6"
   easy_prank_call:
     dependency: "direct main"
     description:
@@ -549,5 +549,5 @@ packages:
     source: hosted
     version: "0.2.0+3"
 sdks:
-  dart: ">=2.19.0 <4.0.0"
+  dart: ">=2.19.0 <3.0.0"
   flutter: ">=3.0.0"

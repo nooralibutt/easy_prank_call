@@ -1,4 +1,5 @@
 ## 1.0.1
+* Make video path optional
 * Fix Bugs
 * Refactor widgets
 

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:easy_ads_flutter/easy_ads_flutter.dart';
 import 'package:easy_prank_call/easy_prank_call.dart';
-import 'package:example/test_ad_id_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

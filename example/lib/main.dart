@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:easy_ads_flutter/easy_ads_flutter.dart';
 import 'package:easy_prank_call/easy_prank_call.dart';
-import 'package:example/test_ad_id_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -51,11 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: Text(widget.title)),
       body: EasyPrankCallApp(
-        title: 'Scary Teacher Prank',
+        title: 'Teacher Prank',
         avatarImgPath: 'assets/images/calling_face.jpg',
         videoPath: 'assets/videos/teacher_video.mov',
         placementBuilder: _addPlacements,

@@ -9,7 +9,7 @@ class EasyPrankCallController extends InheritedWidget {
     super.key,
     required this.title,
     required this.avatarImgPath,
-    required this.videoPath,
+    this.videoPath,
     required super.child,
     this.placementBuilder,
     this.onTapEvent,
@@ -23,7 +23,7 @@ class EasyPrankCallController extends InheritedWidget {
   final String avatarImgPath;
 
   /// This is path of video that will be shown on the incoming video call of the prankster
-  final String videoPath;
+  final String? videoPath;
 
   /// [placementBuilder] is used to build your custom widget at specific places
   final PlacementBuilder? placementBuilder;

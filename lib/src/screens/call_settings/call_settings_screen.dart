@@ -27,37 +27,39 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
     final controller = EasyPrankCallController.of(context);
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              'Call Settings',
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium!
-                  .copyWith(fontWeight: FontWeight.bold),
-            ),
-            TimerSettingItemWidget(
-                onChange: (duration) => _durationSelected = duration),
-            CallTypeItemWidget(onChange: (type) => _typeSelected = type),
-            VibrateItemWidget(
-                isVibrating: _isVibrating,
-                onChange: (isVibrating) => _isVibrating = isVibrating),
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: ElevatedButton.icon(
-                onPressed: _pressedCall,
-                icon: const Icon(Icons.call),
-                label: const Text('Schedule Prank Call'),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'Call Settings',
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineMedium!
+                    .copyWith(fontWeight: FontWeight.bold),
               ),
-            ),
-            if (controller.placementBuilder != null)
-              controller.placementBuilder!
-                  .call(context, PrankCallPlacement.callSettingsBottom),
-          ],
+              TimerSettingItemWidget(
+                  onChange: (duration) => _durationSelected = duration),
+              CallTypeItemWidget(onChange: (type) => _typeSelected = type),
+              VibrateItemWidget(
+                  isVibrating: _isVibrating,
+                  onChange: (isVibrating) => _isVibrating = isVibrating),
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: ElevatedButton.icon(
+                  onPressed: _pressedCall,
+                  icon: const Icon(Icons.call),
+                  label: const Text('Schedule Prank Call'),
+                ),
+              ),
+              if (controller.placementBuilder != null)
+                controller.placementBuilder!
+                    .call(context, PrankCallPlacement.callSettingsBottom),
+            ],
+          ),
         ),
       ),
     );

@@ -12,7 +12,7 @@ class CallIncomingContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
+    final brightness = Theme.of(context).brightness;
     bool isDarkMode = brightness == Brightness.dark;
     return Column(
       children: [

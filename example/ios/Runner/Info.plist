@@ -32,6 +32,10 @@
 	<string>Main</string>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-3940256099942544~1458002511</string>
+	<key>NSCameraUsageDescription</key>
+    <string>In order to video call, we need this permission.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>In order to video call, we need this permission.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

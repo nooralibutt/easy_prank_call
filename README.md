@@ -47,6 +47,17 @@ EasyPrankCallApp(
 )
 ```
 
+### iOS Permissions
+
+You have to add following permissions to access your camera.
+```
+	<key>NSCameraUsageDescription</key>
+    <string>In order to video call, we need this permission.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>In order to video call, we need this permission.</string>
+```
+
+
 See [Example](https://pub.dev/packages/easy_prank_call/example) for better understanding.
 
 ## Authors

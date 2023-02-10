@@ -5,11 +5,11 @@ class MaybeCloseButton extends StatelessWidget {
   const MaybeCloseButton(this.context, {Key? key}) : super(key: key);
 
   @override
-  Widget build(_) {
-    final parentRoute = ModalRoute.of(context);
+  Widget build(BuildContext context) {
+    final parentRoute = ModalRoute.of(this.context);
     final canPop = parentRoute?.canPop ?? false;
     return canPop
-        ? CloseButton(onPressed: Navigator.of(context).pop)
+        ? CloseButton(onPressed: Navigator.of(this.context).pop)
         : const SizedBox();
   }
 }

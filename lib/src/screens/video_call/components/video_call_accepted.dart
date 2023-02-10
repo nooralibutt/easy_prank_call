@@ -1,15 +1,15 @@
-import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
-import 'package:easy_prank_call/src/models/enums.dart';
 import 'package:easy_prank_call/src/widgets/custom_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class VideoCallAcceptedContainer extends StatelessWidget {
   final VoidCallback onPressEnd;
+  final VoidCallback? onPressDialButton;
 
   const VideoCallAcceptedContainer({
     Key? key,
     required this.onPressEnd,
+    this.onPressDialButton,
   }) : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class VideoCallAcceptedContainer extends StatelessWidget {
       children: [
         RoundedButton(
           iconData: CupertinoIcons.mic,
-          press: () => onTap(context),
+          press: onPressDialButton,
           color: Colors.black,
           iconColor: Colors.white,
         ),
@@ -31,19 +31,11 @@ class VideoCallAcceptedContainer extends StatelessWidget {
         ),
         RoundedButton(
           iconData: CupertinoIcons.volume_down,
-          press: () => onTap(context),
+          press: onPressDialButton,
           color: Colors.black,
           iconColor: Colors.white,
         ),
       ],
     );
-  }
-
-  void onTap(BuildContext context) {
-    final controller = EasyPrankCallController.of(context);
-    if (controller.onTapEvent != null) {
-      controller.onTapEvent!
-          .call(context, PrankCallEventAction.callScreenEvent);
-    }
   }
 }

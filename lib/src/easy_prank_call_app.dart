@@ -1,8 +1,5 @@
 import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
-import 'package:easy_prank_call/src/models/call_settings_model.dart';
-import 'package:easy_prank_call/src/screens/audio_call/audio_call_screen.dart';
 import 'package:easy_prank_call/src/screens/call_settings/call_settings_screen.dart';
-import 'package:easy_prank_call/src/screens/video_call/video_call_screen.dart';
 import 'package:easy_prank_call/src/utilities/size_config.dart';
 import 'package:flutter/material.dart';
 
@@ -43,26 +40,7 @@ class EasyPrankCallApp extends StatelessWidget {
       context: context,
       avatarImgPath: avatarImgPath,
       videoPath: videoPath,
-
-      /// Package has its own navigation
-      child: Navigator(
-        initialRoute: CallSettingsScreen.routeName,
-        onGenerateRoute: (settings) {
-          switch (settings.name) {
-            case CallSettingsScreen.routeName:
-              return _generatePage(const CallSettingsScreen());
-            case AudioCallScreen.routeName:
-              return _generatePage(AudioCallScreen(
-                  model: settings.arguments as CallSettingsModel));
-            case VideoCallScreen.routeName:
-              return _generatePage(VideoCallScreen(
-                  model: settings.arguments as CallSettingsModel));
-          }
-          return null;
-        },
-      ),
+      child: const CallSettingsScreen(),
     );
   }
-
-  Route _generatePage(child) => MaterialPageRoute(builder: (_) => child);
 }

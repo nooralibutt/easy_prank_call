@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {
   final bool isVibrationOn;
-
-  const Body(this.isVibrationOn, {super.key});
+  final EasyPrankCallController controller;
+  const Body(this.isVibrationOn, this.controller, {super.key});
 
   @override
   State<Body> createState() => _BodyState();
@@ -40,7 +40,7 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = EasyPrankCallController.of(context);
+    final controller = widget.controller;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -76,8 +76,10 @@ class _BodyState extends State<Body> {
                   AnimatedOpacity(
                     opacity: _isCallAccepted ? 1 : 0,
                     duration: const Duration(milliseconds: 300),
-                    child:
-                        AudioCallAcceptedContainer(onPressEnd: _onPressedEnd),
+                    child: AudioCallAcceptedContainer(
+                      onPressEnd: _onPressedEnd,
+                      onPressDialButton: onPressDialButton,
+                    ),
                   ),
                 ],
               ),
@@ -87,6 +89,14 @@ class _BodyState extends State<Body> {
         ),
       ),
     );
+  }
+
+  void onPressDialButton() {
+    final controller = widget.controller;
+    if (controller.onTapEvent != null) {
+      controller.onTapEvent!
+          .call(context, PrankCallEventAction.callScreenEvent);
+    }
   }
 
   Widget _getCallStatus() {
@@ -109,7 +119,7 @@ class _BodyState extends State<Body> {
 
     Future.delayed(const Duration(seconds: 3), () => Navigator.pop(context));
 
-    final controller = EasyPrankCallController.of(context);
+    final controller = widget.controller;
     if (controller.onTapEvent != null) {
       controller.onTapEvent!.call(context, PrankCallEventAction.callEnd);
     }
@@ -120,7 +130,7 @@ class _BodyState extends State<Body> {
 
     setState(() => _isCallAccepted = true);
 
-    final controller = EasyPrankCallController.of(context);
+    final controller = widget.controller;
     if (controller.onTapEvent != null) {
       controller.onTapEvent!.call(context, PrankCallEventAction.callAccept);
     }

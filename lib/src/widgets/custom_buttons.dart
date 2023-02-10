@@ -8,13 +8,13 @@ class RoundedButton extends StatelessWidget {
     required this.iconData,
     this.color = Colors.white,
     this.iconColor = Colors.black,
-    required this.press,
+    this.press,
   }) : super(key: key);
 
   final double size;
   final IconData iconData;
   final Color color, iconColor;
-  final VoidCallback press;
+  final VoidCallback? press;
 
   @override
   Widget build(BuildContext context) {

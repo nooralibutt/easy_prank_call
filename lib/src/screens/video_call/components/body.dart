@@ -12,9 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class Body extends StatefulWidget {
-  final String? videoPath;
   final bool isVibrationOn;
-  const Body(this.isVibrationOn, {super.key, this.videoPath});
+  final EasyPrankCallController controller;
+  const Body(this.isVibrationOn, this.controller, {super.key});
 
   @override
   State<Body> createState() => _BodyState();
@@ -34,9 +34,13 @@ class _BodyState extends State<Body> {
   }
 
   void _videoInit() {
-    if (widget.videoPath != null && widget.videoPath!.isNotEmpty) {
-      _videoController = VideoPlayerController.asset(widget.videoPath!)
-        ..initialize();
+    final path = widget.controller.videoPath;
+    if (path?.isNotEmpty ?? false) {
+      if (path!.startsWith('http')) {
+        _videoController = VideoPlayerController.network(path)..initialize();
+      } else {
+        _videoController = VideoPlayerController.asset(path)..initialize();
+      }
       _videoController?.setLooping(true);
     }
   }
@@ -50,7 +54,7 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = EasyPrankCallController.of(context);
+    final controller = widget.controller;
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -113,7 +117,9 @@ class _BodyState extends State<Body> {
                           opacity: _isCallAccepted ? 1 : 0,
                           duration: const Duration(milliseconds: 300),
                           child: VideoCallAcceptedContainer(
-                              onPressEnd: _onPressedEnd),
+                            onPressEnd: _onPressedEnd,
+                            onPressDialButton: onPressDialButton,
+                          ),
                         ),
                       ),
                     ],
@@ -125,6 +131,14 @@ class _BodyState extends State<Body> {
         ),
       ],
     );
+  }
+
+  void onPressDialButton() {
+    final controller = widget.controller;
+    if (controller.onTapEvent != null) {
+      controller.onTapEvent!
+          .call(context, PrankCallEventAction.callScreenEvent);
+    }
   }
 
   Widget _getCallStatus() {
@@ -150,7 +164,7 @@ class _BodyState extends State<Body> {
 
     Future.delayed(const Duration(seconds: 3), () => Navigator.pop(context));
 
-    final controller = EasyPrankCallController.of(context);
+    final controller = widget.controller;
     if (controller.onTapEvent != null) {
       controller.onTapEvent!.call(context, PrankCallEventAction.callEnd);
     }
@@ -164,7 +178,7 @@ class _BodyState extends State<Body> {
       _videoController?.play();
     });
 
-    final controller = EasyPrankCallController.of(context);
+    final controller = widget.controller;
     if (controller.onTapEvent != null) {
       controller.onTapEvent!.call(context, PrankCallEventAction.callAccept);
     }

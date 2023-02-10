@@ -6,14 +6,14 @@ class DialButton extends StatelessWidget {
     Key? key,
     required this.iconData,
     required this.text,
-    required this.press,
+    this.press,
     required this.isDarkMode,
   }) : super(key: key);
 
   final IconData iconData;
   final bool isDarkMode;
   final String text;
-  final VoidCallback press;
+  final VoidCallback? press;
 
   @override
   Widget build(BuildContext context) {

@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
-      body: getMainWidget(),
+      body: getMainWidget('assets/videos/teacher_video.mov'),
       floatingActionButton: FloatingActionButton(
         onPressed: onPressedStandalone,
         tooltip: 'Launch standalone',
@@ -59,18 +59,20 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void onPressedStandalone() {
+    const path =
+        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
     Navigator.of(context).push(
       MaterialPageRoute(
           fullscreenDialog: true,
-          builder: (_) => Scaffold(body: getMainWidget())),
+          builder: (_) => Scaffold(body: getMainWidget(path))),
     );
   }
 
-  Widget getMainWidget() {
+  Widget getMainWidget(String videoPath) {
     return EasyPrankCallApp(
       title: 'Teacher Prank',
       avatarImgPath: 'assets/images/calling_face.jpg',
-      videoPath: 'assets/videos/teacher_video.mov',
+      videoPath: videoPath,
       placementBuilder: _addPlacements,
       onTapEvent: _onTapEvent,
     );

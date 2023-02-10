@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-enum CallType { audio, video }
-
 class CallTypeItemWidget extends StatefulWidget {
-  final ValueChanged<CallType> onChange;
+  final ValueChanged<bool> onChange;
+  final bool isAudio;
 
   const CallTypeItemWidget({
     Key? key,
     required this.onChange,
+    this.isAudio = true,
   }) : super(key: key);
 
   @override
@@ -15,7 +15,14 @@ class CallTypeItemWidget extends StatefulWidget {
 }
 
 class _CallTypeItemWidgetState extends State<CallTypeItemWidget> {
-  var _typeSelected = CallType.audio;
+  var _isAudio = true;
+
+  @override
+  void initState() {
+    _isAudio = widget.isAudio;
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,46 +30,20 @@ class _CallTypeItemWidgetState extends State<CallTypeItemWidget> {
       padding: const EdgeInsets.only(top: 16.0),
       child: ListTile(
         tileColor: Theme.of(context).cardColor,
-        onTap: () => _showTimerBottomSheet(context),
+        onTap: () {
+          setState(() => _isAudio = !_isAudio);
+          widget.onChange(_isAudio);
+        },
         dense: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         title: const Text('Call Type'),
-        leading: Icon(_getIcon(_typeSelected)),
-        trailing: Text(_getTextStr(_typeSelected)),
+        leading: Icon(icon),
+        trailing: Text(_isAudio ? 'Audio' : 'Video'),
       ),
     );
   }
 
-  static String _getTextStr(CallType type) =>
-      type == CallType.audio ? 'Audio' : 'Video';
-
-  static IconData _getIcon(CallType type) =>
-      type == CallType.audio ? Icons.call : Icons.video_call;
-
-  void _showTimerBottomSheet(context) async {
-    final selectedItem = await showModalBottomSheet<CallType>(
-        isScrollControlled: true,
-        context: context,
-        builder: (BuildContext bc) {
-          return SafeArea(
-            top: false,
-            child: Wrap(
-                children: CallType.values.map((item) {
-              return ListTile(
-                leading: Icon(_getIcon(item)),
-                title: Text(_getTextStr(item)),
-                onTap: () => Navigator.pop(context, item),
-              );
-            }).toList()),
-          );
-        });
-
-    if (selectedItem == null) return;
-
-    setState(() => _typeSelected = selectedItem);
-
-    widget.onChange(selectedItem);
-  }
+  IconData get icon => _isAudio ? Icons.audiotrack : Icons.video_call;
 }

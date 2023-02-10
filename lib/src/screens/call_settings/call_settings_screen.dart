@@ -20,7 +20,7 @@ class CallSettingsScreen extends StatefulWidget {
 
 class _CallSettingsScreenState extends State<CallSettingsScreen> {
   var _durationSelected = const Duration(seconds: 0);
-  var _typeSelected = CallType.audio;
+  var _isAudio = true;
   var _isVibrating = true;
 
   @override
@@ -49,7 +49,7 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
               ),
               TimerSettingItemWidget(
                   onChange: (duration) => _durationSelected = duration),
-              CallTypeItemWidget(onChange: (type) => _typeSelected = type),
+              CallTypeItemWidget(onChange: (isAudio) => _isAudio = isAudio),
               VibrateItemWidget(
                   isVibrating: _isVibrating,
                   onChange: (isVibrating) => _isVibrating = isVibrating),
@@ -80,11 +80,13 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
   }
 
   void _moveToCallScreen() {
-    Navigator.pushNamed(
-        context,
-        _typeSelected == CallType.audio
-            ? AudioCallScreen.routeName
-            : VideoCallScreen.routeName,
-        arguments: CallSettingsModel(_durationSelected, _isVibrating));
+    final controller = EasyPrankCallController.of(context);
+    final model =
+        CallSettingsModel(_durationSelected, _isVibrating, controller);
+    final screen = _isAudio
+        ? AudioCallScreen(model: model)
+        : VideoCallScreen(model: model);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (_) => screen, fullscreenDialog: true));
   }
 }

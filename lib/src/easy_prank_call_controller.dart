@@ -9,12 +9,16 @@ class EasyPrankCallController extends InheritedWidget {
     super.key,
     required this.title,
     required this.avatarImgPath,
+    required this.parentContext,
     this.videoPath,
     required super.child,
     this.placementBuilder,
     this.onTapEvent,
     required this.context,
   });
+
+  /// This is the main title text
+  final BuildContext parentContext;
 
   /// This is the main title text
   final String title;

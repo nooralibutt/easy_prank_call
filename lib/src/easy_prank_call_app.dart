@@ -37,6 +37,7 @@ class EasyPrankCallApp extends StatelessWidget {
 
     return EasyPrankCallController(
       title: title,
+      parentContext: context,
       placementBuilder: placementBuilder,
       onTapEvent: onTapEvent,
       context: context,
@@ -64,36 +65,4 @@ class EasyPrankCallApp extends StatelessWidget {
   }
 
   Route _generatePage(child) => MaterialPageRoute(builder: (_) => child);
-
-  static void launchApp(
-    BuildContext context, {
-    /// This is the main title text
-    required final String title,
-
-    /// This is path of image that will be shown on the incoming audio call of the prankster
-    required final String avatarImgPath,
-
-    /// This is path of video that will be shown on the incoming video call of the prankster
-    required final String videoPath,
-
-    /// [placementBuilder] is used to build your custom widget at specific places
-    final PlacementBuilder? placementBuilder,
-
-    /// [onTapEvent] will be call on every event preformed by the user
-    final EventActionCallback? onTapEvent,
-  }) =>
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          fullscreenDialog: true,
-          builder: (context) => Scaffold(
-            body: EasyPrankCallApp(
-              title: title,
-              avatarImgPath: avatarImgPath,
-              videoPath: videoPath,
-              placementBuilder: placementBuilder,
-              onTapEvent: onTapEvent,
-            ),
-          ),
-        ),
-      );
 }

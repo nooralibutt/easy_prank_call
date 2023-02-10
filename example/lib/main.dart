@@ -49,18 +49,30 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
-      body: EasyPrankCallApp(
-        title: 'Teacher Prank',
-        avatarImgPath: 'assets/images/calling_face.jpg',
-        videoPath: 'assets/videos/teacher_video.mov',
-        placementBuilder: _addPlacements,
-        onTapEvent: _onTapEvent,
-      ),
+      body: getMainWidget(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        onPressed: onPressedStandalone,
+        tooltip: 'Launch standalone',
+        child: const Icon(Icons.launch),
       ),
+    );
+  }
+
+  void onPressedStandalone() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+          fullscreenDialog: true,
+          builder: (_) => Scaffold(body: getMainWidget())),
+    );
+  }
+
+  Widget getMainWidget() {
+    return EasyPrankCallApp(
+      title: 'Teacher Prank',
+      avatarImgPath: 'assets/images/calling_face.jpg',
+      videoPath: 'assets/videos/teacher_video.mov',
+      placementBuilder: _addPlacements,
+      onTapEvent: _onTapEvent,
     );
   }
 

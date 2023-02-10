@@ -6,6 +6,7 @@ import 'package:easy_prank_call/src/screens/call_settings/components/call_type_i
 import 'package:easy_prank_call/src/screens/call_settings/components/timer_setting_item_widget.dart';
 import 'package:easy_prank_call/src/screens/call_settings/components/vibrate_item_widget.dart';
 import 'package:easy_prank_call/src/screens/video_call/video_call_screen.dart';
+import 'package:easy_prank_call/src/widgets/maybe_close_button.dart';
 import 'package:flutter/material.dart';
 
 class CallSettingsScreen extends StatefulWidget {
@@ -33,13 +34,18 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                'Call Settings',
-                textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium!
-                    .copyWith(fontWeight: FontWeight.bold),
+              Row(
+                children: [
+                  MaybeCloseButton(controller.parentContext),
+                  Text(
+                    'Call Settings',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineMedium!
+                        .copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
               TimerSettingItemWidget(
                   onChange: (duration) => _durationSelected = duration),
@@ -73,8 +79,8 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
     _moveToCallScreen();
   }
 
-  void _moveToCallScreen() async {
-    await Navigator.pushNamed(
+  void _moveToCallScreen() {
+    Navigator.pushNamed(
         context,
         _typeSelected == CallType.audio
             ? AudioCallScreen.routeName

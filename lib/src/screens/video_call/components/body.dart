@@ -7,7 +7,6 @@ import 'package:easy_prank_call/src/utilities/my_vibrator.dart';
 import 'package:easy_prank_call/src/utilities/size_config.dart';
 import 'package:easy_prank_call/src/widgets/call_incoming_container.dart';
 import 'package:easy_prank_call/src/widgets/countdown_timer.dart';
-import 'package:easy_prank_call/src/widgets/dial_user_pic.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -71,7 +70,10 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               )
-            : DialUserPic(image: controller.avatarImgPath),
+            : Image.asset(
+                controller.avatarImgPath,
+                fit: BoxFit.cover,
+              ),
         DecoratedBox(
             decoration: BoxDecoration(color: Colors.black.withOpacity(0.3))),
         Padding(

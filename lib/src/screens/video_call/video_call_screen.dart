@@ -1,5 +1,6 @@
 import 'package:easy_prank_call/src/models/call_settings_model.dart';
 import 'package:easy_prank_call/src/screens/video_call/components/body.dart';
+import 'package:easy_prank_call/src/widgets/call_scheduler_black_screen.dart';
 import 'package:flutter/material.dart';
 
 class VideoCallScreen extends StatelessWidget {
@@ -11,7 +12,10 @@ class VideoCallScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Body(model.isVibrationOn, model.controller),
+      body: CallSchedulerBlackScreen(
+        duration: model.duration,
+        child: Body(model.isVibrationOn, model.controller),
+      ),
     );
   }
 }

@@ -6,7 +6,8 @@
 * removes custom navigator
 * fixes call type list tile for easy control
 * adds functionality of network video
-* 
+* fixes video call avatar screen layout issue
+* fixes black screen delay scheduler issue in case of video call
 
 ## 1.0.1
 * Make video path optional

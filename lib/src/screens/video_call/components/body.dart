@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_prank_call/easy_prank_call.dart';
 import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
 import 'package:easy_prank_call/src/screens/video_call/components/camera_preview_widget.dart';
@@ -24,10 +26,38 @@ class _BodyState extends State<Body> {
   bool _isCallEnded = false;
   VideoPlayerController? _videoController;
 
+  //timer setup
+  Timer? _countdownTimer;
+  Duration _duration = const Duration(seconds: 30);
+
+  //timer related methods
+  void startTimer() {
+    _countdownTimer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {
+        setCountDown();
+      },
+    );
+  }
+
+  void setCountDown() {
+    const reducesSecondsBy = 1;
+    setState(() {
+      final seconds = _duration.inSeconds - reducesSecondsBy;
+      if (seconds < 0) {
+        _countdownTimer?.cancel();
+        _onPressedEnd();
+      } else {
+        _duration = Duration(seconds: seconds);
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     MyAudioPlayer.instance.playRingtone();
+    startTimer();
     if (widget.isVibrationOn) MyVibrator.ringtoneVibrate();
     _videoInit();
   }
@@ -47,6 +77,7 @@ class _BodyState extends State<Body> {
   @override
   void dispose() {
     _stopRingtone();
+    _countdownTimer?.cancel();
     _videoController?.dispose();
     super.dispose();
   }
@@ -174,7 +205,7 @@ class _BodyState extends State<Body> {
 
   void _onPressedAccept() {
     _stopRingtone();
-
+    _countdownTimer?.cancel();
     setState(() {
       _isCallAccepted = true;
       _videoController?.play();

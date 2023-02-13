@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_prank_call/easy_prank_call.dart';
 import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
 import 'package:easy_prank_call/src/screens/audio_call/components/audio_call_accepted_container.dart';
@@ -21,11 +23,37 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   bool _isCallAccepted = false;
   bool _isCallEnded = false;
+  //timer setup
+  Timer? _countdownTimer;
+  Duration _duration = const Duration(seconds: 30);
+
+  //timer related methods
+  void startTimer() {
+    _countdownTimer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) {
+        setCountDown();
+      },
+    );
+  }
+
+  void setCountDown() {
+    const reducesSecondsBy = 1;
+    setState(() {
+      final seconds = _duration.inSeconds - reducesSecondsBy;
+      if (seconds < 0) {
+        _countdownTimer?.cancel();
+        _onPressedEnd();
+      } else {
+        _duration = Duration(seconds: seconds);
+      }
+    });
+  }
 
   @override
   void initState() {
     MyAudioPlayer.instance.playRingtone();
-
+    startTimer();
     if (widget.isVibrationOn) MyVibrator.ringtoneVibrate();
 
     super.initState();
@@ -34,7 +62,7 @@ class _BodyState extends State<Body> {
   @override
   void dispose() {
     _stopRingtone();
-
+    _countdownTimer?.cancel();
     super.dispose();
   }
 
@@ -127,7 +155,7 @@ class _BodyState extends State<Body> {
 
   void _onPressedAccept() {
     _stopRingtone();
-
+    _countdownTimer?.cancel();
     setState(() => _isCallAccepted = true);
 
     final controller = widget.controller;

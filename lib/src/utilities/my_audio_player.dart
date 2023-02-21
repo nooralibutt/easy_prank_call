@@ -1,4 +1,4 @@
-import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart';
 
 class MyAudioPlayer {
   // Singleton instance code
@@ -6,27 +6,17 @@ class MyAudioPlayer {
   static MyAudioPlayer get instance => _instance;
   MyAudioPlayer._();
 
-  final AudioCache _audioCache = AudioCache(prefix: 'assets/audio/');
-  AudioPlayer? _audioPlayer;
+  final _alertPlayer = AudioPlayer();
 
-  Future<void> init() => _audioCache.loadAll([
-        'ios_call_opening.mp3',
-        'applause.mp3',
-        'receive.mp3',
-        'sent.mp3',
-        'level fail sound.mp3',
-        'button tap.mp3',
-        'tap failed.mp3',
-        'success.wav',
-        'scratching.mp3',
-      ]);
+  Future<void> init() async {
+    await _alertPlayer
+        .setAudioSource(AudioSource.asset("assets/sounds/alert.mp3"));
+  }
 
-  Future<AudioPlayer> playRingtone() => _audioCache
-      .loop('ios_call_opening.mp3')
-      .then((player) => _audioPlayer = player);
+  void stopRingtone() => _alertPlayer.stop();
 
-  void stopRingtone() {
-    _audioPlayer?.stop();
-    _audioPlayer = null;
+  void playRingtone() {
+    _alertPlayer.setLoopMode(LoopMode.all);
+    _alertPlayer.load();
   }
 }

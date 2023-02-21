@@ -1,5 +1,6 @@
 import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
 import 'package:easy_prank_call/src/screens/call_settings/call_settings_screen.dart';
+import 'package:easy_prank_call/src/utilities/my_audio_player.dart';
 import 'package:easy_prank_call/src/utilities/size_config.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +32,7 @@ class EasyPrankCallApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    MyAudioPlayer.instance.init();
 
     return EasyPrankCallController(
       title: title,

@@ -10,7 +10,7 @@ class MyAudioPlayer {
 
   Future<void> init() async {
     await _alertPlayer
-        .setAudioSource(AudioSource.asset("assets/sounds/alert.mp3"));
+        .setAudioSource(AudioSource.asset("assets/audio/ios_call_opening.mp3"));
   }
 
   void stopRingtone() => _alertPlayer.stop();

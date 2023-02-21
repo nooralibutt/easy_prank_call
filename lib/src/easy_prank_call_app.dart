@@ -20,6 +20,8 @@ class EasyPrankCallApp extends StatelessWidget {
   /// [onTapEvent] will be call on every event preformed by the user
   final EventActionCallback? onTapEvent;
 
+  final String? ringtonePath;
+
   const EasyPrankCallApp({
     Key? key,
     required this.title,
@@ -27,12 +29,13 @@ class EasyPrankCallApp extends StatelessWidget {
     required this.avatarImgPath,
     this.onTapEvent,
     this.placementBuilder,
+    this.ringtonePath,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    MyAudioPlayer.instance.init();
+    MyAudioPlayer.instance.init(ringtonePath ?? '');
 
     return EasyPrankCallController(
       title: title,
@@ -42,6 +45,7 @@ class EasyPrankCallApp extends StatelessWidget {
       context: context,
       avatarImgPath: avatarImgPath,
       videoPath: videoPath,
+      ringtonePath: ringtonePath,
       child: const CallSettingsScreen(),
     );
   }

@@ -6,17 +6,16 @@ class MyAudioPlayer {
   static MyAudioPlayer get instance => _instance;
   MyAudioPlayer._();
 
-  final _alertPlayer = AudioPlayer();
+  final _ringtonePlayer = AudioPlayer();
 
-  Future<void> init() async {
-    await _alertPlayer
-        .setAudioSource(AudioSource.asset("assets/audio/ios_call_opening.mp3"));
+  Future<void> init(String ringtonePath) async {
+    await _ringtonePlayer.setAudioSource(AudioSource.asset(ringtonePath));
   }
 
-  void stopRingtone() => _alertPlayer.stop();
+  void stopRingtone() => _ringtonePlayer.stop();
 
   void playRingtone() {
-    _alertPlayer.setLoopMode(LoopMode.all);
-    _alertPlayer.load();
+    _ringtonePlayer.setLoopMode(LoopMode.all);
+    _ringtonePlayer.load();
   }
 }

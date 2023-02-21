@@ -15,7 +15,9 @@ class EasyPrankCallController extends InheritedWidget {
     this.placementBuilder,
     this.onTapEvent,
     required this.context,
+    required this.ringtonePath,
   });
+  final String? ringtonePath;
 
   /// This is the main title text
   final BuildContext parentContext;

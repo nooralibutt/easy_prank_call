@@ -75,7 +75,8 @@ class _MyHomePageState extends State<MyHomePage> {
       videoPath: videoPath,
       placementBuilder: _addPlacements,
       onTapEvent: _onTapEvent,
-      ringtonePath: 'assets/audio/ios_call_opening.mp3',
+      ringtonePath:
+          'https://cdn.pixabay.com/download/audio/2023/02/18/audio_21231d9e7c.mp3?filename=water-stream-i-139716.mp3',
     );
   }
 

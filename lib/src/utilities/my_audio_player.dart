@@ -11,7 +11,7 @@ class MyAudioPlayer {
   Future<void> init(String ringtonePath) {
     if (ringtonePath.startsWith('http')) {
       return _ringtonePlayer
-          .setAudioSource(AudioSource.uri(Uri.parse(ringtonePath)));
+          .setAudioSource(LockCachingAudioSource(Uri.parse(ringtonePath)));
     } else {
       return _ringtonePlayer.setAudioSource(AudioSource.asset(ringtonePath));
     }

@@ -54,7 +54,7 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
                   isVibrating: _isVibrating,
                   onChange: (isVibrating) => _isVibrating = isVibrating),
               Padding(
-                padding: const EdgeInsets.only(top: 16.0),
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton.icon(
                   onPressed: _pressedCall,
                   icon: const Icon(Icons.call),

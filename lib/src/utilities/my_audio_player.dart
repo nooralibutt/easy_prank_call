@@ -8,15 +8,22 @@ class MyAudioPlayer {
 
   final _ringtonePlayer = AudioPlayer();
 
-  Future<void> init(String ringtonePath) async {
-    await _ringtonePlayer.setAudioSource(AudioSource.asset(ringtonePath));
+  Future<void> init(String ringtonePath) {
+    if (ringtonePath.startsWith('http')) {
+      return _ringtonePlayer
+          .setAudioSource(AudioSource.uri(Uri.parse(ringtonePath)));
+    } else {
+      return _ringtonePlayer.setAudioSource(AudioSource.asset(ringtonePath));
+    }
   }
 
-  void stopRingtone() => _ringtonePlayer.stop();
+  void stopRingtone() {
+    _ringtonePlayer.stop();
+    _ringtonePlayer.load();
+  }
 
   void playRingtone() {
     _ringtonePlayer.setLoopMode(LoopMode.all);
     _ringtonePlayer.play();
-    _ringtonePlayer.load();
   }
 }

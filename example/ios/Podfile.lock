@@ -3,7 +3,7 @@ PODS:
     - AppLovinSDK (= 11.6.1)
     - Flutter
   - AppLovinSDK (11.6.1)
-  - audioplayers (0.0.1):
+  - audio_session (0.0.1):
     - Flutter
   - camera_avfoundation (0.0.1):
     - Flutter
@@ -56,6 +56,8 @@ PODS:
   - "GoogleUtilities/NSData+zlib (7.11.0)"
   - GoogleUtilities/Reachability (7.11.0):
     - GoogleUtilities/Logger
+  - just_audio (0.0.1):
+    - Flutter
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
     - nanopb/encode (= 2.30909.0)
@@ -76,11 +78,12 @@ PODS:
 
 DEPENDENCIES:
   - applovin_max (from `.symlinks/plugins/applovin_max/ios`)
-  - audioplayers (from `.symlinks/plugins/audioplayers/ios`)
+  - audio_session (from `.symlinks/plugins/audio_session/ios`)
   - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
   - easy_audience_network (from `.symlinks/plugins/easy_audience_network/ios`)
   - Flutter (from `Flutter`)
   - google_mobile_ads (from `.symlinks/plugins/google_mobile_ads/ios`)
+  - just_audio (from `.symlinks/plugins/just_audio/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
   - unity_ads_plugin (from `.symlinks/plugins/unity_ads_plugin/ios`)
   - vibration (from `.symlinks/plugins/vibration/ios`)
@@ -101,8 +104,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   applovin_max:
     :path: ".symlinks/plugins/applovin_max/ios"
-  audioplayers:
-    :path: ".symlinks/plugins/audioplayers/ios"
+  audio_session:
+    :path: ".symlinks/plugins/audio_session/ios"
   camera_avfoundation:
     :path: ".symlinks/plugins/camera_avfoundation/ios"
   easy_audience_network:
@@ -111,6 +114,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   google_mobile_ads:
     :path: ".symlinks/plugins/google_mobile_ads/ios"
+  just_audio:
+    :path: ".symlinks/plugins/just_audio/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/ios"
   unity_ads_plugin:
@@ -123,7 +128,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   applovin_max: 8d1b98dc68d23f5809825f1b4db4368219cb15cc
   AppLovinSDK: c72c4cc9dd61ee59827813bc99af35815c08ffd4
-  audioplayers: 455322b54050b30ea4b1af7cd9e9d105f74efa8c
+  audio_session: 4f3e461722055d21515cf3261b64c973c062f345
   camera_avfoundation: 07c77549ea54ad95d8581be86617c094a46280d9
   easy_audience_network: b56708ef1ccc75dbc97d87adae8458493395768e
   FBAudienceNetwork: e0fcc9091fced34910ed0b6da06f129db46ac9e6
@@ -133,6 +138,7 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: c7d6fff39bf2d829587d74088d582e32d75133c3
   GoogleUserMessagingPlatform: 5f8b30daf181805317b6b985bb51c1ff3beca054
   GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
+  just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb

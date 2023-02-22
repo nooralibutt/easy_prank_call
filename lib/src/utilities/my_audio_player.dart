@@ -16,6 +16,7 @@ class MyAudioPlayer {
 
   void playRingtone() {
     _ringtonePlayer.setLoopMode(LoopMode.all);
+    _ringtonePlayer.play();
     _ringtonePlayer.load();
   }
 }

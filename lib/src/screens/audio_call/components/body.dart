@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_prank_call/easy_prank_call.dart';
 import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
 import 'package:easy_prank_call/src/screens/audio_call/components/audio_call_accepted_container.dart';
@@ -21,10 +23,12 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   bool _isCallAccepted = false;
   bool _isCallEnded = false;
+  Timer? callRingingTimer;
 
   @override
   void initState() {
     MyAudioPlayer.instance.playRingtone();
+    callRingingTimer = Timer(const Duration(minutes: 1), _onPressedEnd);
 
     if (widget.isVibrationOn) MyVibrator.ringtoneVibrate();
 
@@ -115,6 +119,9 @@ class _BodyState extends State<Body> {
   }
 
   void _onPressedEnd() {
+    callRingingTimer?.cancel();
+    callRingingTimer = null;
+
     setState(() => _isCallEnded = true);
 
     Future.delayed(const Duration(seconds: 3), () => Navigator.pop(context));
@@ -126,6 +133,9 @@ class _BodyState extends State<Body> {
   }
 
   void _onPressedAccept() {
+    callRingingTimer?.cancel();
+    callRingingTimer = null;
+
     _stopRingtone();
 
     setState(() => _isCallAccepted = true);

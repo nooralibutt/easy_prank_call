@@ -8,7 +8,8 @@ class MyAudioPlayer {
 
   final _ringtonePlayer = AudioPlayer();
 
-  Future<void> init(String ringtonePath) {
+  Future<void> init(String? ringtonePath) {
+    ringtonePath ??= 'assets/audio/ios_call_opening.mp3';
     if (ringtonePath.startsWith('http')) {
       return _ringtonePlayer
           .setAudioSource(AudioSource.uri(Uri.parse(ringtonePath)));

@@ -75,8 +75,6 @@ class _MyHomePageState extends State<MyHomePage> {
       videoPath: videoPath,
       placementBuilder: _addPlacements,
       onTapEvent: _onTapEvent,
-      ringtonePath:
-          'https://github.com/nooralibutt/easy_prank_call/raw/update-audio-player/example/assets/audio/ios_call_opening.mp3',
     );
   }
 

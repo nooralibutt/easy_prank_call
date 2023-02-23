@@ -35,7 +35,7 @@ class EasyPrankCallApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    MyAudioPlayer.instance.init(ringtonePath ?? '');
+    MyAudioPlayer.instance.init(ringtonePath);
 
     return EasyPrankCallController(
       title: title,

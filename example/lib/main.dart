@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
       placementBuilder: _addPlacements,
       onTapEvent: _onTapEvent,
       ringtonePath:
-          'https://cdn.pixabay.com/download/audio/2023/02/18/audio_21231d9e7c.mp3?filename=water-stream-i-139716.mp3',
+          'https://github.com/nooralibutt/easy_prank_call/raw/update-audio-player/example/assets/audio/ios_call_opening.mp3',
     );
   }
 

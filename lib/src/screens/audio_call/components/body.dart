@@ -37,8 +37,6 @@ class _BodyState extends State<Body> {
 
   @override
   void dispose() {
-    callRingingTimer?.cancel();
-    callRingingTimer = null;
     _stopRingtone();
 
     super.dispose();
@@ -118,33 +116,27 @@ class _BodyState extends State<Body> {
   void _stopRingtone() {
     MyAudioPlayer.instance.stopRingtone();
     MyVibrator.stop();
+    callRingingTimer?.cancel();
+    callRingingTimer = null;
   }
 
   void _onPressedEnd() {
-    callRingingTimer?.cancel();
-    callRingingTimer = null;
+    _stopRingtone();
 
     setState(() => _isCallEnded = true);
 
-    Future.delayed(const Duration(seconds: 3), () => Navigator.pop(context));
-
-    final controller = widget.controller;
-    if (controller.onTapEvent != null) {
-      controller.onTapEvent!.call(context, PrankCallEventAction.callEnd);
-    }
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.pop(context);
+      widget.controller.onTapEvent?.call(context, PrankCallEventAction.callEnd);
+    });
   }
 
   void _onPressedAccept() {
-    callRingingTimer?.cancel();
-    callRingingTimer = null;
-
     _stopRingtone();
 
     setState(() => _isCallAccepted = true);
 
-    final controller = widget.controller;
-    if (controller.onTapEvent != null) {
-      controller.onTapEvent!.call(context, PrankCallEventAction.callAccept);
-    }
+    widget.controller.onTapEvent
+        ?.call(context, PrankCallEventAction.callAccept);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
-import 'package:easy_prank_call/src/models/enums.dart';
+import 'package:easy_prank_call/src/models/call_settings_model.dart';
 import 'package:easy_prank_call/src/utilities/my_audio_player.dart';
 import 'package:easy_prank_call/src/utilities/size_config.dart';
 import 'package:flutter/material.dart';
@@ -25,19 +25,17 @@ class EasyPrankCallApp extends StatelessWidget {
   /// You can pass your own ringtone. It could be a url or asset path
   final String? ringtonePath;
 
-  /// [isVibrationOn] is by default is true
-  final bool isVibrationOn;
-
-  /// [callType] is by default is true
-  final EasyCallType callType;
-
   /// [skipCallSettings] is by default is false, if true , it will launch direct
   /// call screen
   final bool skipCallSettings;
 
+  /// This [callSetting] is used for call
+  /// [isAudioCall] is by default is true
+  /// [skipCallSetting] is by default is false, if true , it will launch direct
+  /// call screen
   /// [callScheduleDuration] is by default is 0.s, it will use to launch call
   /// after the given duration
-  final Duration callScheduleDuration;
+  final CallSetting? callSetting;
 
   const EasyPrankCallApp({
     Key? key,
@@ -47,10 +45,8 @@ class EasyPrankCallApp extends StatelessWidget {
     this.onTapEvent,
     this.placementBuilder,
     this.ringtonePath = 'assets/audio/ios_call_opening.mp3',
-    this.isVibrationOn = true,
-    this.callType = EasyCallType.audio,
     this.skipCallSettings = false,
-    this.callScheduleDuration = const Duration(seconds: 0),
+    this.callSetting,
   }) : super(key: key);
 
   @override
@@ -67,14 +63,12 @@ class EasyPrankCallApp extends StatelessWidget {
         avatarImgPath: avatarImgPath,
         videoPath: videoPath,
         ringtonePath: ringtonePath,
-        isVibrationOn: isVibrationOn,
-        callType: callType,
-        isLaunchFullScreen: skipCallSettings,
-        callScheduleDuration: callScheduleDuration,
-        child: _moveToCallScreen(context));
+        callSetting: callSetting ?? CallSetting(),
+        skipCallSetting: skipCallSettings,
+        child: _moveToCallScreen());
   }
 
-  Widget _moveToCallScreen(BuildContext context) {
+  Widget _moveToCallScreen() {
     return Builder(builder: (context) {
       final controller = EasyPrankCallController.of(context);
       if (skipCallSettings) {

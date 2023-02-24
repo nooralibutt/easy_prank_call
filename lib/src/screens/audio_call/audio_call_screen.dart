@@ -12,7 +12,7 @@ class AudioCallScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CallSchedulerBlackScreen(
-        duration: controller.callScheduleDuration,
+        duration: controller.callSetting.callScheduleDuration,
         child: Body(controller),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:easy_prank_call/src/models/call_settings_model.dart';
 import 'package:easy_prank_call/src/models/enums.dart';
 import 'package:easy_prank_call/src/screens/audio_call/audio_call_screen.dart';
 import 'package:easy_prank_call/src/screens/video_call/video_call_screen.dart';
@@ -16,12 +17,10 @@ class EasyPrankCallController extends InheritedWidget {
     required super.child,
     this.placementBuilder,
     this.onTapEvent,
-    required this.isVibrationOn,
-    required this.callType,
     required this.context,
     required this.ringtonePath,
-    required this.isLaunchFullScreen,
-    required this.callScheduleDuration,
+    required this.callSetting,
+    required this.skipCallSetting,
   });
   final String? ringtonePath;
 
@@ -43,19 +42,16 @@ class EasyPrankCallController extends InheritedWidget {
   /// [onTapEvent] will be call on every event preformed by the user
   final EventActionCallback? onTapEvent;
 
-  /// [isVibrationOn] is by default is true
-  final bool isVibrationOn;
-
-  /// [isAudioCall] is by default is true
-  final EasyCallType callType;
-
-  /// [isLaunchFullScreen] is by default is false, if true , it will launch direct
+  /// [skipCallSetting] is by default is false, if true , it will launch direct
   /// call screen
-  final bool isLaunchFullScreen;
+  final bool skipCallSetting;
 
+  /// This [callSetting] is used for call
+  /// [isVibrationOn] is by default is true
+  /// [isAudioCall] is by default is true
   /// [callScheduleDuration] is by default is 0.s, it will use to launch call
   /// after the given duration
-  final Duration callScheduleDuration;
+  final CallSetting callSetting;
 
   final BuildContext context;
 
@@ -76,7 +72,7 @@ class EasyPrankCallController extends InheritedWidget {
 
   Widget moveToNextScreen(BuildContext context) {
     final controller = EasyPrankCallController.of(context);
-    return callType == EasyCallType.audio
+    return callSetting.callType == EasyCallType.audio
         ? AudioCallScreen(controller: controller)
         : VideoCallScreen(controller: controller);
   }

@@ -23,9 +23,9 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
   @override
   void initState() {
     super.initState();
-    _isAudio = widget.controller.callType == EasyCallType.audio;
-    _isVibrating = widget.controller.isVibrationOn;
-    _durationSelected = widget.controller.callScheduleDuration;
+    _isAudio = widget.controller.callSetting.callType == EasyCallType.audio;
+    _isVibrating = widget.controller.callSetting.isVibrationOn;
+    _durationSelected = widget.controller.callSetting.callScheduleDuration;
   }
 
   @override
@@ -77,11 +77,11 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
     );
   }
 
-  Future<void> _pressedCall() async {
-    _moveToCallScreen();
-  }
-
-  void _moveToCallScreen() {
+  void _pressedCall() {
+    widget.controller.callSetting.callType =
+        _isAudio ? EasyCallType.audio : EasyCallType.video;
+    widget.controller.callSetting.isVibrationOn = _isVibrating;
+    widget.controller.callSetting.callScheduleDuration = _durationSelected;
     final screen =
         EasyPrankCallController.of(context).moveToNextScreen(context);
     Navigator.push(context,

@@ -1,9 +1,13 @@
-class CallSettingsModel {
-  final Duration duration;
-  final bool isVibrationOn;
-  final String title;
-  final String avatarImgPath;
+import 'package:easy_prank_call/easy_prank_call.dart';
 
-  const CallSettingsModel(
-      this.duration, this.isVibrationOn, this.title, this.avatarImgPath);
+class CallSetting {
+  Duration callScheduleDuration;
+  bool isVibrationOn;
+  EasyCallType callType;
+
+  CallSetting({
+    this.callScheduleDuration = const Duration(seconds: 0),
+    this.isVibrationOn = true,
+    this.callType = EasyCallType.audio,
+  });
 }

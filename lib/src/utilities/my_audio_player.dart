@@ -1,4 +1,4 @@
-import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart';
 
 class MyAudioPlayer {
   // Singleton instance code
@@ -6,27 +6,27 @@ class MyAudioPlayer {
   static MyAudioPlayer get instance => _instance;
   MyAudioPlayer._();
 
-  final AudioCache _audioCache = AudioCache(prefix: 'assets/audio/');
-  AudioPlayer? _audioPlayer;
+  AudioPlayer? _ringtonePlayer;
 
-  Future<void> init() => _audioCache.loadAll([
-        'ios_call_opening.mp3',
-        'applause.mp3',
-        'receive.mp3',
-        'sent.mp3',
-        'level fail sound.mp3',
-        'button tap.mp3',
-        'tap failed.mp3',
-        'success.wav',
-        'scratching.mp3',
-      ]);
+  Future<void> init(String? ringtonePath) {
+    if (ringtonePath == null || _ringtonePlayer != null) return Future.value();
 
-  Future<AudioPlayer> playRingtone() => _audioCache
-      .loop('ios_call_opening.mp3')
-      .then((player) => _audioPlayer = player);
+    _ringtonePlayer = AudioPlayer();
+    if (ringtonePath.startsWith('http')) {
+      return _ringtonePlayer!
+          .setAudioSource(AudioSource.uri(Uri.parse(ringtonePath)));
+    } else {
+      return _ringtonePlayer!.setAudioSource(AudioSource.asset(ringtonePath));
+    }
+  }
 
   void stopRingtone() {
-    _audioPlayer?.stop();
-    _audioPlayer = null;
+    _ringtonePlayer?.stop();
+    _ringtonePlayer?.load();
+  }
+
+  void playRingtone() {
+    _ringtonePlayer?.setLoopMode(LoopMode.all);
+    _ringtonePlayer?.play();
   }
 }

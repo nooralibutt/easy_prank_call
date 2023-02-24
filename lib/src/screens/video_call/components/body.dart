@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_prank_call/easy_prank_call.dart';
 import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
 import 'package:easy_prank_call/src/screens/video_call/components/camera_preview_widget.dart';
@@ -23,11 +25,14 @@ class _BodyState extends State<Body> {
   bool _isCallAccepted = false;
   bool _isCallEnded = false;
   VideoPlayerController? _videoController;
+  Timer? callRingingTimer;
 
   @override
   void initState() {
     super.initState();
     MyAudioPlayer.instance.playRingtone();
+    callRingingTimer = Timer(const Duration(minutes: 1), _onPressedEnd);
+
     if (widget.isVibrationOn) MyVibrator.ringtoneVibrate();
     _videoInit();
   }
@@ -46,7 +51,7 @@ class _BodyState extends State<Body> {
 
   @override
   void dispose() {
-    _stopRingtone();
+    _stopServices();
     _videoController?.dispose();
     super.dispose();
   }
@@ -153,9 +158,11 @@ class _BodyState extends State<Body> {
     }
   }
 
-  void _stopRingtone() {
+  void _stopServices() {
     MyAudioPlayer.instance.stopRingtone();
     MyVibrator.stop();
+    callRingingTimer?.cancel();
+    callRingingTimer = null;
   }
 
   void _onPressedEnd() {
@@ -164,25 +171,21 @@ class _BodyState extends State<Body> {
       _videoController?.pause();
     });
 
-    Future.delayed(const Duration(seconds: 3), () => Navigator.pop(context));
-
-    final controller = widget.controller;
-    if (controller.onTapEvent != null) {
-      controller.onTapEvent!.call(context, PrankCallEventAction.callEnd);
-    }
+    Future.delayed(const Duration(seconds: 3), () {
+      widget.controller.onTapEvent?.call(context, PrankCallEventAction.callEnd);
+      Navigator.pop(context);
+    });
   }
 
   void _onPressedAccept() {
-    _stopRingtone();
+    _stopServices();
 
     setState(() {
       _isCallAccepted = true;
       _videoController?.play();
     });
 
-    final controller = widget.controller;
-    if (controller.onTapEvent != null) {
-      controller.onTapEvent!.call(context, PrankCallEventAction.callAccept);
-    }
+    widget.controller.onTapEvent
+        ?.call(context, PrankCallEventAction.callAccept);
   }
 }

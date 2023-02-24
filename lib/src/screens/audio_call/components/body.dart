@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_prank_call/easy_prank_call.dart';
 import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
 import 'package:easy_prank_call/src/screens/audio_call/components/audio_call_accepted_container.dart';
@@ -21,10 +23,12 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   bool _isCallAccepted = false;
   bool _isCallEnded = false;
+  Timer? callRingingTimer;
 
   @override
   void initState() {
     MyAudioPlayer.instance.playRingtone();
+    callRingingTimer = Timer(const Duration(minutes: 1), _onPressedEnd);
 
     if (widget.isVibrationOn) MyVibrator.ringtoneVibrate();
 
@@ -33,7 +37,7 @@ class _BodyState extends State<Body> {
 
   @override
   void dispose() {
-    _stopRingtone();
+    _stopServices();
 
     super.dispose();
   }
@@ -109,30 +113,30 @@ class _BodyState extends State<Body> {
     }
   }
 
-  void _stopRingtone() {
+  void _stopServices() {
     MyAudioPlayer.instance.stopRingtone();
     MyVibrator.stop();
+    callRingingTimer?.cancel();
+    callRingingTimer = null;
   }
 
   void _onPressedEnd() {
+    _stopServices();
+
     setState(() => _isCallEnded = true);
 
-    Future.delayed(const Duration(seconds: 3), () => Navigator.pop(context));
-
-    final controller = widget.controller;
-    if (controller.onTapEvent != null) {
-      controller.onTapEvent!.call(context, PrankCallEventAction.callEnd);
-    }
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.pop(context);
+      widget.controller.onTapEvent?.call(context, PrankCallEventAction.callEnd);
+    });
   }
 
   void _onPressedAccept() {
-    _stopRingtone();
+    _stopServices();
 
     setState(() => _isCallAccepted = true);
 
-    final controller = widget.controller;
-    if (controller.onTapEvent != null) {
-      controller.onTapEvent!.call(context, PrankCallEventAction.callAccept);
-    }
+    widget.controller.onTapEvent
+        ?.call(context, PrankCallEventAction.callAccept);
   }
 }

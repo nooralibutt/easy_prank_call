@@ -1,6 +1,9 @@
 import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
+import 'package:easy_prank_call/src/models/call_settings_model.dart';
 import 'package:easy_prank_call/src/models/enums.dart';
+import 'package:easy_prank_call/src/screens/audio_call/audio_call_screen.dart';
 import 'package:easy_prank_call/src/screens/call_settings/call_settings_screen.dart';
+import 'package:easy_prank_call/src/screens/video_call/video_call_screen.dart';
 import 'package:easy_prank_call/src/utilities/my_audio_player.dart';
 import 'package:easy_prank_call/src/utilities/size_config.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +33,10 @@ class EasyPrankCallApp extends StatelessWidget {
   /// [callType] is by default is true
   final EasyCallType callType;
 
+  /// [isLaunchFullScreen] is by default is false, if true , it will launch direct
+  /// call screen
+  final bool isLaunchFullScreen;
+
   const EasyPrankCallApp({
     Key? key,
     required this.title,
@@ -40,6 +47,7 @@ class EasyPrankCallApp extends StatelessWidget {
     this.ringtonePath = 'assets/audio/ios_call_opening.mp3',
     this.isVibrationOn = true,
     this.callType = EasyCallType.audio,
+    this.isLaunchFullScreen = false,
   }) : super(key: key);
 
   @override
@@ -58,7 +66,18 @@ class EasyPrankCallApp extends StatelessWidget {
       ringtonePath: ringtonePath,
       isVibrationOn: isVibrationOn,
       callType: callType,
-      child: const CallSettingsScreen(),
+      launchFullScreen: isLaunchFullScreen,
+      child: isLaunchFullScreen
+          ? _moveToCallScreen(context)
+          : const CallSettingsScreen(),
     );
+  }
+
+  Widget _moveToCallScreen(BuildContext context) {
+    final model = CallSettingsModel(
+        const Duration(seconds: 0), isVibrationOn, title, avatarImgPath);
+    return callType == EasyCallType.audio
+        ? AudioCallScreen(model: model)
+        : VideoCallScreen(model: model);
   }
 }

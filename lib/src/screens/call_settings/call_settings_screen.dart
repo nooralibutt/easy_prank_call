@@ -85,11 +85,11 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
 
   void _moveToCallScreen() {
     final controller = EasyPrankCallController.of(context);
-    final model =
-        CallSettingsModel(_durationSelected, _isVibrating, controller);
+    final model = CallSettingsModel(_durationSelected, _isVibrating,
+        controller.title, controller.avatarImgPath);
     final screen = _isAudio
         ? AudioCallScreen(model: model)
-        : VideoCallScreen(model: model);
+        : VideoCallScreen(model: model, videoPath: controller.videoPath);
     Navigator.push(context,
         MaterialPageRoute(builder: (_) => screen, fullscreenDialog: true));
   }

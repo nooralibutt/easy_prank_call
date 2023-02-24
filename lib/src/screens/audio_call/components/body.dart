@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:easy_prank_call/easy_prank_call.dart';
 import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
+import 'package:easy_prank_call/src/models/call_settings_model.dart';
 import 'package:easy_prank_call/src/screens/audio_call/components/audio_call_accepted_container.dart';
 import 'package:easy_prank_call/src/utilities/my_audio_player.dart';
 import 'package:easy_prank_call/src/utilities/my_vibrator.dart';
@@ -12,9 +13,8 @@ import 'package:easy_prank_call/src/widgets/dial_user_pic.dart';
 import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {
-  final bool isVibrationOn;
-  final EasyPrankCallController controller;
-  const Body(this.isVibrationOn, this.controller, {super.key});
+  final CallSettingsModel model;
+  const Body(this.model, {super.key});
 
   @override
   State<Body> createState() => _BodyState();
@@ -30,7 +30,7 @@ class _BodyState extends State<Body> {
     MyAudioPlayer.instance.playRingtone();
     callRingingTimer = Timer(const Duration(minutes: 1), _onPressedEnd);
 
-    if (widget.isVibrationOn) MyVibrator.ringtoneVibrate();
+    if (widget.model.isVibrationOn) MyVibrator.ringtoneVibrate();
 
     super.initState();
   }
@@ -44,14 +44,13 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = widget.controller;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             Text(
-              controller.title,
+              widget.model.title,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             AnimatedOpacity(
@@ -61,8 +60,8 @@ class _BodyState extends State<Body> {
             ),
             const VerticalSpacing(),
             _isCallAccepted
-                ? DialUserPic(image: controller.avatarImgPath)
-                : DialUserPicAnimated(image: controller.avatarImgPath),
+                ? DialUserPic(image: widget.model.avatarImgPath)
+                : DialUserPicAnimated(image: widget.model.avatarImgPath),
             const Spacer(),
             AnimatedOpacity(
               duration: const Duration(milliseconds: 300),
@@ -96,7 +95,7 @@ class _BodyState extends State<Body> {
   }
 
   void onPressDialButton() {
-    final controller = widget.controller;
+    final controller = EasyPrankCallController.of(context);
     if (controller.onTapEvent != null) {
       controller.onTapEvent!
           .call(context, PrankCallEventAction.callScreenEvent);
@@ -126,8 +125,10 @@ class _BodyState extends State<Body> {
     setState(() => _isCallEnded = true);
 
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pop(context);
-      widget.controller.onTapEvent?.call(context, PrankCallEventAction.callEnd);
+      if (Navigator.canPop(context)) Navigator.pop(context);
+      EasyPrankCallController.of(context)
+          .onTapEvent
+          ?.call(context, PrankCallEventAction.callEnd);
     });
   }
 
@@ -136,7 +137,8 @@ class _BodyState extends State<Body> {
 
     setState(() => _isCallAccepted = true);
 
-    widget.controller.onTapEvent
+    EasyPrankCallController.of(context)
+        .onTapEvent
         ?.call(context, PrankCallEventAction.callAccept);
   }
 }

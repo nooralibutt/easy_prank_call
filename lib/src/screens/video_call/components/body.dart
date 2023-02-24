@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:easy_prank_call/easy_prank_call.dart';
 import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
+import 'package:easy_prank_call/src/models/call_settings_model.dart';
 import 'package:easy_prank_call/src/screens/video_call/components/camera_preview_widget.dart';
 import 'package:easy_prank_call/src/screens/video_call/components/video_call_accepted.dart';
 import 'package:easy_prank_call/src/utilities/my_audio_player.dart';
@@ -13,9 +14,9 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class Body extends StatefulWidget {
-  final bool isVibrationOn;
-  final EasyPrankCallController controller;
-  const Body(this.isVibrationOn, this.controller, {super.key});
+  final CallSettingsModel model;
+  final String? videoPath;
+  const Body(this.model, {super.key, this.videoPath});
 
   @override
   State<Body> createState() => _BodyState();
@@ -33,12 +34,12 @@ class _BodyState extends State<Body> {
     MyAudioPlayer.instance.playRingtone();
     callRingingTimer = Timer(const Duration(minutes: 1), _onPressedEnd);
 
-    if (widget.isVibrationOn) MyVibrator.ringtoneVibrate();
+    if (widget.model.isVibrationOn) MyVibrator.ringtoneVibrate();
     _videoInit();
   }
 
   void _videoInit() {
-    final path = widget.controller.videoPath;
+    final path = widget.videoPath;
     if (path?.isNotEmpty ?? false) {
       if (path!.startsWith('http')) {
         _videoController = VideoPlayerController.network(path)..initialize();
@@ -58,7 +59,6 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = widget.controller;
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -76,7 +76,7 @@ class _BodyState extends State<Body> {
                 ),
               )
             : Image.asset(
-                controller.avatarImgPath,
+                widget.model.avatarImgPath,
                 fit: BoxFit.cover,
               ),
         DecoratedBox(
@@ -88,7 +88,7 @@ class _BodyState extends State<Body> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  controller.title,
+                  widget.model.title,
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall!
@@ -141,11 +141,9 @@ class _BodyState extends State<Body> {
   }
 
   void onPressDialButton() {
-    final controller = widget.controller;
-    if (controller.onTapEvent != null) {
-      controller.onTapEvent!
-          .call(context, PrankCallEventAction.callScreenEvent);
-    }
+    EasyPrankCallController.of(context)
+        .onTapEvent
+        ?.call(context, PrankCallEventAction.callScreenEvent);
   }
 
   Widget _getCallStatus() {
@@ -172,7 +170,9 @@ class _BodyState extends State<Body> {
     });
 
     Future.delayed(const Duration(seconds: 3), () {
-      widget.controller.onTapEvent?.call(context, PrankCallEventAction.callEnd);
+      EasyPrankCallController.of(context)
+          .onTapEvent
+          ?.call(context, PrankCallEventAction.callEnd);
       Navigator.pop(context);
     });
   }
@@ -185,7 +185,8 @@ class _BodyState extends State<Body> {
       _videoController?.play();
     });
 
-    widget.controller.onTapEvent
+    EasyPrankCallController.of(context)
+        .onTapEvent
         ?.call(context, PrankCallEventAction.callAccept);
   }
 }

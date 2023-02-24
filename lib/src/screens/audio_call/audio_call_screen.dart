@@ -13,7 +13,7 @@ class AudioCallScreen extends StatelessWidget {
     return Scaffold(
       body: CallSchedulerBlackScreen(
         duration: model.duration,
-        child: Body(model.isVibrationOn, model.controller),
+        child: Body(model),
       ),
     );
   }

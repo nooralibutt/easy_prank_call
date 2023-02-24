@@ -5,16 +5,21 @@ import 'package:flutter/material.dart';
 
 class VideoCallScreen extends StatelessWidget {
   static const String routeName = "/videoCallScreen";
+  final String? videoPath;
   final CallSettingsModel model;
 
-  const VideoCallScreen({super.key, required this.model});
+  const VideoCallScreen({
+    super.key,
+    required this.model,
+    this.videoPath,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CallSchedulerBlackScreen(
         duration: model.duration,
-        child: Body(model.isVibrationOn, model.controller),
+        child: Body(model, videoPath: videoPath),
       ),
     );
   }

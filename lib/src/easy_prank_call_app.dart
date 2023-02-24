@@ -37,7 +37,7 @@ class EasyPrankCallApp extends StatelessWidget {
     required this.avatarImgPath,
     this.onTapEvent,
     this.placementBuilder,
-    this.ringtonePath,
+    this.ringtonePath = 'assets/audio/ios_call_opening.mp3',
     this.isVibrationOn = true,
     this.callType = EasyCallType.audio,
   }) : super(key: key);
@@ -45,7 +45,7 @@ class EasyPrankCallApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    MyAudioPlayer.instance.init(ringtonePath);
+    if (ringtonePath != null) MyAudioPlayer.instance.init(ringtonePath);
 
     return EasyPrankCallController(
       title: title,

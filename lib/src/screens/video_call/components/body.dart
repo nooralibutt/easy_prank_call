@@ -51,9 +51,7 @@ class _BodyState extends State<Body> {
 
   @override
   void dispose() {
-    callRingingTimer?.cancel();
-    callRingingTimer = null;
-    _stopRingtone();
+    _stopServices();
     _videoController?.dispose();
     super.dispose();
   }
@@ -160,40 +158,34 @@ class _BodyState extends State<Body> {
     }
   }
 
-  void _stopRingtone() {
+  void _stopServices() {
     MyAudioPlayer.instance.stopRingtone();
     MyVibrator.stop();
+    callRingingTimer?.cancel();
+    callRingingTimer = null;
   }
 
   void _onPressedEnd() {
-    callRingingTimer?.cancel();
-    callRingingTimer = null;
     setState(() {
       _isCallEnded = true;
       _videoController?.pause();
     });
 
-    Future.delayed(const Duration(seconds: 3), () => Navigator.pop(context));
-
-    final controller = widget.controller;
-    if (controller.onTapEvent != null) {
-      controller.onTapEvent!.call(context, PrankCallEventAction.callEnd);
-    }
+    Future.delayed(const Duration(seconds: 3), () {
+      widget.controller.onTapEvent?.call(context, PrankCallEventAction.callEnd);
+      Navigator.pop(context);
+    });
   }
 
   void _onPressedAccept() {
-    callRingingTimer?.cancel();
-    callRingingTimer = null;
-    _stopRingtone();
+    _stopServices();
 
     setState(() {
       _isCallAccepted = true;
       _videoController?.play();
     });
 
-    final controller = widget.controller;
-    if (controller.onTapEvent != null) {
-      controller.onTapEvent!.call(context, PrankCallEventAction.callAccept);
-    }
+    widget.controller.onTapEvent
+        ?.call(context, PrankCallEventAction.callAccept);
   }
 }

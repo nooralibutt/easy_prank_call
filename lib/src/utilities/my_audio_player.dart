@@ -6,25 +6,27 @@ class MyAudioPlayer {
   static MyAudioPlayer get instance => _instance;
   MyAudioPlayer._();
 
-  final _ringtonePlayer = AudioPlayer();
+  AudioPlayer? _ringtonePlayer;
 
   Future<void> init(String? ringtonePath) {
-    ringtonePath ??= 'assets/audio/ios_call_opening.mp3';
-    if (ringtonePath.startsWith('http')) {
-      return _ringtonePlayer
+    if (_ringtonePlayer != null) return Future.value();
+
+    _ringtonePlayer = AudioPlayer();
+    if (ringtonePath!.startsWith('http')) {
+      return _ringtonePlayer!
           .setAudioSource(AudioSource.uri(Uri.parse(ringtonePath)));
     } else {
-      return _ringtonePlayer.setAudioSource(AudioSource.asset(ringtonePath));
+      return _ringtonePlayer!.setAudioSource(AudioSource.asset(ringtonePath));
     }
   }
 
   void stopRingtone() {
-    _ringtonePlayer.stop();
-    _ringtonePlayer.load();
+    _ringtonePlayer?.stop();
+    _ringtonePlayer?.load();
   }
 
   void playRingtone() {
-    _ringtonePlayer.setLoopMode(LoopMode.all);
-    _ringtonePlayer.play();
+    _ringtonePlayer?.setLoopMode(LoopMode.all);
+    _ringtonePlayer?.play();
   }
 }

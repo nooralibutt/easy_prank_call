@@ -82,8 +82,7 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
         _isAudio ? EasyCallType.audio : EasyCallType.video;
     widget.controller.callSetting.isVibrationOn = _isVibrating;
     widget.controller.callSetting.callScheduleDuration = _durationSelected;
-    final screen =
-        EasyPrankCallController.of(context).moveToNextScreen(context);
+    final screen = EasyPrankCallController.of(context).getCallScreen();
     Navigator.push(context,
         MaterialPageRoute(builder: (_) => screen, fullscreenDialog: true));
   }

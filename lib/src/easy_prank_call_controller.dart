@@ -65,10 +65,9 @@ class EasyPrankCallController extends InheritedWidget {
   bool updateShouldNotify(EasyPrankCallController oldWidget) =>
       title != oldWidget.title;
 
-  Widget moveToNextScreen(BuildContext context) {
-    final controller = EasyPrankCallController.of(context);
+  Widget getCallScreen() {
     return callSetting.callType == EasyCallType.audio
-        ? AudioCallScreen(controller: controller)
-        : VideoCallScreen(controller: controller);
+        ? AudioCallScreen(controller: this)
+        : VideoCallScreen(controller: this);
   }
 }

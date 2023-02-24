@@ -81,7 +81,7 @@ class EasyPrankCallApp extends StatelessWidget {
     return Builder(builder: (context) {
       final controller = EasyPrankCallController.of(context);
       if (skipCallSettings) {
-        return controller.moveToNextScreen(context);
+        return controller.getCallScreen();
       } else {
         return CallSettingsScreen(controller);
       }

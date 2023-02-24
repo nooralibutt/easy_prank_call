@@ -74,6 +74,7 @@ class _BodyState extends State<Body> {
                     duration: const Duration(milliseconds: 300),
                     child: CallIncomingContainer(
                       onPressAccept: _onPressedAccept,
+                      onPressEnd: _onPressedEnd,
                     ),
                   ),
                   AnimatedOpacity(

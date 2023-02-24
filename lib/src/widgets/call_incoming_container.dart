@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 
 class CallIncomingContainer extends StatelessWidget {
   final VoidCallback onPressAccept;
+  final VoidCallback onPressEnd;
 
-  const CallIncomingContainer({Key? key, required this.onPressAccept})
+  const CallIncomingContainer(
+      {Key? key, required this.onPressAccept, required this.onPressEnd})
       : super(key: key);
 
   @override
@@ -39,7 +41,7 @@ class CallIncomingContainer extends StatelessWidget {
           children: [
             RoundedButton(
               iconData: CupertinoIcons.phone_down_fill,
-              press: () => Navigator.pop(context),
+              press: onPressEnd,
               color: Colors.red,
               iconColor: Colors.white,
             ),

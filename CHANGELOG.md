@@ -1,3 +1,9 @@
+## 2.1.0
+* Support for direct call
+* Add Setting to schedule direct call
+* Add duration limit for call ringing 
+* Support for custom call ringtones
+
 ## 2.0.0
 * Fixes close button bug on launch
 * Updates read me

@@ -78,6 +78,11 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
   }
 
   void _pressedCall() {
+    // if (_durationSelected != const Duration(seconds: 0)) {
+    // NotificationManager.instance
+    //     .scheduleNotificationOnScheduleCall(_durationSelected);
+    // }
+
     widget.controller.callSetting.callType =
         _isAudio ? EasyCallType.audio : EasyCallType.video;
     widget.controller.callSetting.isVibrationOn = _isVibrating;

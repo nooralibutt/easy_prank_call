@@ -18,23 +18,6 @@ You can schedule a prank audio and video call with this package.
 ![](https://github.com/nooralibutt/easy_prank_call/blob/master/demo_gif.gif?raw=true)
 
 ## How to use
-There are two ways to use Easy Wallpaper.
-
-
-### 1: Stand-Alone App mode
-
-```dart
-EasyPrankCallApp.launchApp(
-  title: 'Scary Teacher Prank',
-  avatarImgPath: 'assets/images/calling_face.jpg',
-  videoPath: 'assets/videos/teacher_video.mov',
-  placementBuilder: _addPlacements,
-  onTapEvent: _onTapEvent,
-  onDialCall: _callOnWatchAd,
-)
-```
-
-### 2: Add to Widget-Tree
 
 ```dart
 EasyPrankCallApp(
@@ -44,6 +27,10 @@ EasyPrankCallApp(
   placementBuilder: _addPlacements,
   onTapEvent: _onTapEvent,
   onDialCall: _callOnWatchAd,
+  callType: EasyCallType.video,
+  callScheduleDuration: Duration(seconds: 7),
+  skipCallSettings: true,
+  ringtonePath: 'YOUR_AUDIO_URL / YOUR_AUDIO_ASSET',
 )
 ```
 

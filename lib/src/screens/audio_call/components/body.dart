@@ -97,11 +97,8 @@ class _BodyState extends State<Body> {
   }
 
   void onPressDialButton() {
-    final controller = EasyPrankCallController.of(context);
-    if (controller.onTapEvent != null) {
-      controller.onTapEvent!
-          .call(context, PrankCallEventAction.callScreenEvent);
-    }
+    widget.controller.onTapEvent
+        ?.call(context, PrankCallEventAction.callScreenEvent);
   }
 
   Widget _getCallStatus() {

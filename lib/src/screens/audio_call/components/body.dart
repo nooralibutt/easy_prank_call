@@ -37,6 +37,8 @@ class _BodyState extends State<Body> {
 
   @override
   void dispose() {
+    callRingingTimer?.cancel();
+    callRingingTimer = null;
     _stopRingtone();
 
     super.dispose();

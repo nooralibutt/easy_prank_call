@@ -124,12 +124,16 @@ class _BodyState extends State<Body> {
     _stopServices();
 
     setState(() => _isCallEnded = true);
+    final controller = EasyPrankCallController.of(context);
+    BuildContext cxt = context;
+
+    if (controller.isLaunchFullScreen) {
+      cxt = controller.parentContext;
+    }
 
     Future.delayed(const Duration(seconds: 3), () {
-      if (Navigator.canPop(context)) Navigator.pop(context);
-      EasyPrankCallController.of(context)
-          .onTapEvent
-          ?.call(context, PrankCallEventAction.callEnd);
+      controller.onTapEvent?.call(context, PrankCallEventAction.callEnd);
+      if (Navigator.canPop(cxt)) Navigator.pop(cxt);
     });
   }
 

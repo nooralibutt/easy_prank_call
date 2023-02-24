@@ -18,7 +18,7 @@ class EasyPrankCallController extends InheritedWidget {
     required this.callType,
     required this.context,
     required this.ringtonePath,
-    required this.launchFullScreen,
+    required this.isLaunchFullScreen,
   });
   final String? ringtonePath;
 
@@ -46,9 +46,9 @@ class EasyPrankCallController extends InheritedWidget {
   /// [isAudioCall] is by default is true
   final EasyCallType callType;
 
-  /// [launchFullScreen] is by default is false, if true , it will launch direct
+  /// [isLaunchFullScreen] is by default is false, if true , it will launch direct
   /// call screen
-  final bool launchFullScreen;
+  final bool isLaunchFullScreen;
 
   final BuildContext context;
 

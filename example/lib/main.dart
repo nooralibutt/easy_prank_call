@@ -75,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
       videoPath: videoPath,
       placementBuilder: _addPlacements,
       onTapEvent: _onTapEvent,
+      callType: EasyCallType.video,
       isLaunchFullScreen: true,
     );
   }

@@ -66,7 +66,7 @@ class EasyPrankCallApp extends StatelessWidget {
       ringtonePath: ringtonePath,
       isVibrationOn: isVibrationOn,
       callType: callType,
-      launchFullScreen: isLaunchFullScreen,
+      isLaunchFullScreen: isLaunchFullScreen,
       child: isLaunchFullScreen
           ? _moveToCallScreen(context)
           : const CallSettingsScreen(),

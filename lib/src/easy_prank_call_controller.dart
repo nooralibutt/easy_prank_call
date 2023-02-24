@@ -20,7 +20,6 @@ class EasyPrankCallController extends InheritedWidget {
     required this.context,
     required this.ringtonePath,
     required this.callSetting,
-    required this.skipCallSetting,
   });
   final String? ringtonePath;
 
@@ -41,10 +40,6 @@ class EasyPrankCallController extends InheritedWidget {
 
   /// [onTapEvent] will be call on every event preformed by the user
   final EventActionCallback? onTapEvent;
-
-  /// [skipCallSetting] is by default is false, if true , it will launch direct
-  /// call screen
-  final bool skipCallSetting;
 
   /// This [callSetting] is used for call
   /// [isVibrationOn] is by default is true

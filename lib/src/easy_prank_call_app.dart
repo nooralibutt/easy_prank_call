@@ -74,7 +74,6 @@ class EasyPrankCallApp extends StatelessWidget {
         videoPath: videoPath,
         ringtonePath: ringtonePath,
         callSetting: callSetting,
-        skipCallSetting: skipCallSettings,
         child: _moveToCallScreen());
   }
 

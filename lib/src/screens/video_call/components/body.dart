@@ -51,7 +51,7 @@ class _BodyState extends State<Body> {
 
   @override
   void dispose() {
-    _stopRingtone();
+    _stopServices();
     _videoController?.dispose();
     super.dispose();
   }
@@ -158,7 +158,7 @@ class _BodyState extends State<Body> {
     }
   }
 
-  void _stopRingtone() {
+  void _stopServices() {
     MyAudioPlayer.instance.stopRingtone();
     MyVibrator.stop();
     callRingingTimer?.cancel();
@@ -178,7 +178,7 @@ class _BodyState extends State<Body> {
   }
 
   void _onPressedAccept() {
-    _stopRingtone();
+    _stopServices();
 
     setState(() {
       _isCallAccepted = true;

@@ -1,4 +1,6 @@
 import 'package:easy_prank_call/src/models/enums.dart';
+import 'package:easy_prank_call/src/screens/audio_call/audio_call_screen.dart';
+import 'package:easy_prank_call/src/screens/video_call/video_call_screen.dart';
 import 'package:flutter/material.dart';
 
 typedef PlacementBuilder = Widget Function(BuildContext, PrankCallPlacement);
@@ -19,6 +21,7 @@ class EasyPrankCallController extends InheritedWidget {
     required this.context,
     required this.ringtonePath,
     required this.isLaunchFullScreen,
+    required this.callScheduleDuration,
   });
   final String? ringtonePath;
 
@@ -50,6 +53,10 @@ class EasyPrankCallController extends InheritedWidget {
   /// call screen
   final bool isLaunchFullScreen;
 
+  /// [callScheduleDuration] is by default is 0.s, it will use to launch call
+  /// after the given duration
+  final Duration callScheduleDuration;
+
   final BuildContext context;
 
   static EasyPrankCallController? maybeOf(BuildContext context) {
@@ -66,4 +73,11 @@ class EasyPrankCallController extends InheritedWidget {
   @override
   bool updateShouldNotify(EasyPrankCallController oldWidget) =>
       title != oldWidget.title;
+
+  Widget moveToNextScreen(BuildContext context) {
+    final controller = EasyPrankCallController.of(context);
+    return callType == EasyCallType.audio
+        ? AudioCallScreen(controller: controller)
+        : VideoCallScreen(controller: controller);
+  }
 }

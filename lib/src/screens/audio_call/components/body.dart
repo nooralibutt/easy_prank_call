@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:easy_prank_call/easy_prank_call.dart';
 import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
-import 'package:easy_prank_call/src/models/call_settings_model.dart';
 import 'package:easy_prank_call/src/screens/audio_call/components/audio_call_accepted_container.dart';
 import 'package:easy_prank_call/src/utilities/my_audio_player.dart';
 import 'package:easy_prank_call/src/utilities/my_vibrator.dart';
@@ -13,8 +12,8 @@ import 'package:easy_prank_call/src/widgets/dial_user_pic.dart';
 import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {
-  final CallSettingsModel model;
-  const Body(this.model, {super.key});
+  final EasyPrankCallController controller;
+  const Body(this.controller, {super.key});
 
   @override
   State<Body> createState() => _BodyState();
@@ -30,7 +29,7 @@ class _BodyState extends State<Body> {
     MyAudioPlayer.instance.playRingtone();
     callRingingTimer = Timer(const Duration(minutes: 1), _onPressedEnd);
 
-    if (widget.model.isVibrationOn) MyVibrator.ringtoneVibrate();
+    if (widget.controller.isVibrationOn) MyVibrator.ringtoneVibrate();
 
     super.initState();
   }
@@ -50,7 +49,7 @@ class _BodyState extends State<Body> {
         child: Column(
           children: [
             Text(
-              widget.model.title,
+              widget.controller.title,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             AnimatedOpacity(
@@ -60,8 +59,8 @@ class _BodyState extends State<Body> {
             ),
             const VerticalSpacing(),
             _isCallAccepted
-                ? DialUserPic(image: widget.model.avatarImgPath)
-                : DialUserPicAnimated(image: widget.model.avatarImgPath),
+                ? DialUserPic(image: widget.controller.avatarImgPath)
+                : DialUserPicAnimated(image: widget.controller.avatarImgPath),
             const Spacer(),
             AnimatedOpacity(
               duration: const Duration(milliseconds: 300),
@@ -124,16 +123,10 @@ class _BodyState extends State<Body> {
     _stopServices();
 
     setState(() => _isCallEnded = true);
-    final controller = EasyPrankCallController.of(context);
-    BuildContext cxt = context;
-
-    if (controller.isLaunchFullScreen) {
-      cxt = controller.parentContext;
-    }
 
     Future.delayed(const Duration(seconds: 3), () {
-      controller.onTapEvent?.call(context, PrankCallEventAction.callEnd);
-      if (Navigator.canPop(cxt)) Navigator.pop(cxt);
+      widget.controller.onTapEvent?.call(context, PrankCallEventAction.callEnd);
+      if (Navigator.canPop(context)) Navigator.pop(context);
     });
   }
 
@@ -142,8 +135,7 @@ class _BodyState extends State<Body> {
 
     setState(() => _isCallAccepted = true);
 
-    EasyPrankCallController.of(context)
-        .onTapEvent
+    widget.controller.onTapEvent
         ?.call(context, PrankCallEventAction.callAccept);
   }
 }

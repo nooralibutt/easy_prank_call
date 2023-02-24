@@ -32,8 +32,9 @@ class _BodyState extends State<Body> {
     MyAudioPlayer.instance.playRingtone();
     callRingingTimer = Timer(const Duration(minutes: 1), _onPressedEnd);
 
-    if (widget.controller.callSetting.isVibrationOn)
+    if (widget.controller.callSetting.isVibrationOn) {
       MyVibrator.ringtoneVibrate();
+    }
     _videoInit();
   }
 

@@ -1,5 +1,6 @@
 import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
 import 'package:easy_prank_call/src/models/call_settings_model.dart';
+import 'package:easy_prank_call/src/models/enums.dart';
 import 'package:easy_prank_call/src/utilities/my_audio_player.dart';
 import 'package:easy_prank_call/src/utilities/size_config.dart';
 import 'package:flutter/material.dart';
@@ -29,13 +30,15 @@ class EasyPrankCallApp extends StatelessWidget {
   /// call screen
   final bool skipCallSettings;
 
-  /// This [callSetting] is used for call
-  /// [isAudioCall] is by default is true
-  /// [skipCallSetting] is by default is false, if true , it will launch direct
-  /// call screen
+  /// [isVibrationOn] is by default is true
+  final bool isVibrationOn;
+
   /// [callScheduleDuration] is by default is 0.s, it will use to launch call
   /// after the given duration
-  final CallSetting? callSetting;
+  final Duration callScheduleDuration;
+
+  /// [callType] is by default is true
+  final EasyCallType callType;
 
   const EasyPrankCallApp({
     Key? key,
@@ -46,13 +49,20 @@ class EasyPrankCallApp extends StatelessWidget {
     this.placementBuilder,
     this.ringtonePath = 'assets/audio/ios_call_opening.mp3',
     this.skipCallSettings = false,
-    this.callSetting,
+    this.isVibrationOn = true,
+    this.callType = EasyCallType.audio,
+    this.callScheduleDuration = const Duration(seconds: 0),
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     if (ringtonePath != null) MyAudioPlayer.instance.init(ringtonePath);
+
+    final callSetting = CallSetting(
+        callScheduleDuration: callScheduleDuration,
+        callType: callType,
+        isVibrationOn: isVibrationOn);
 
     return EasyPrankCallController(
         title: title,
@@ -63,7 +73,7 @@ class EasyPrankCallApp extends StatelessWidget {
         avatarImgPath: avatarImgPath,
         videoPath: videoPath,
         ringtonePath: ringtonePath,
-        callSetting: callSetting ?? CallSetting(),
+        callSetting: callSetting,
         skipCallSetting: skipCallSettings,
         child: _moveToCallScreen());
   }

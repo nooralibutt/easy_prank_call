@@ -62,7 +62,7 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
                 child: ElevatedButton.icon(
                   onPressed: _pressedCall,
                   icon: const Icon(Icons.call),
-                  label: const Text('Schedule Prank Call'),
+                  label: const Text('Prank Call'),
                 ),
               ),
               if (controller.placementBuilder != null)

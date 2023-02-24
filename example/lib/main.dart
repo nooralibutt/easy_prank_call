@@ -48,7 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
       body: getMainWidget('assets/videos/teacher_video.mov'),
       floatingActionButton: FloatingActionButton(
         onPressed: onPressedStandalone,
@@ -75,8 +74,6 @@ class _MyHomePageState extends State<MyHomePage> {
       videoPath: videoPath,
       placementBuilder: _addPlacements,
       onTapEvent: _onTapEvent,
-      callType: EasyCallType.video,
-      isLaunchFullScreen: true,
     );
   }
 

@@ -33,9 +33,9 @@ class EasyPrankCallApp extends StatelessWidget {
   /// [callType] is by default is true
   final EasyCallType callType;
 
-  /// [isLaunchFullScreen] is by default is false, if true , it will launch direct
+  /// [skipCallSettings] is by default is false, if true , it will launch direct
   /// call screen
-  final bool isLaunchFullScreen;
+  final bool skipCallSettings;
 
   const EasyPrankCallApp({
     Key? key,
@@ -47,7 +47,7 @@ class EasyPrankCallApp extends StatelessWidget {
     this.ringtonePath = 'assets/audio/ios_call_opening.mp3',
     this.isVibrationOn = true,
     this.callType = EasyCallType.audio,
-    this.isLaunchFullScreen = false,
+    this.skipCallSettings = false,
   }) : super(key: key);
 
   @override
@@ -66,8 +66,8 @@ class EasyPrankCallApp extends StatelessWidget {
       ringtonePath: ringtonePath,
       isVibrationOn: isVibrationOn,
       callType: callType,
-      isLaunchFullScreen: isLaunchFullScreen,
-      child: isLaunchFullScreen
+      isLaunchFullScreen: skipCallSettings,
+      child: skipCallSettings
           ? _moveToCallScreen(context)
           : const CallSettingsScreen(),
     );

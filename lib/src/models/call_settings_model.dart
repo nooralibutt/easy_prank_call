@@ -1,9 +1,13 @@
-import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
+import 'package:easy_prank_call/easy_prank_call.dart';
 
-class CallSettingsModel {
-  final Duration duration;
-  final bool isVibrationOn;
-  final EasyPrankCallController controller;
+class CallSetting {
+  Duration callScheduleDuration;
+  bool isVibrationOn;
+  EasyCallType callType;
 
-  const CallSettingsModel(this.duration, this.isVibrationOn, this.controller);
+  CallSetting({
+    this.callScheduleDuration = const Duration(seconds: 0),
+    this.isVibrationOn = true,
+    this.callType = EasyCallType.audio,
+  });
 }

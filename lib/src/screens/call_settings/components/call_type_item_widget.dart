@@ -15,7 +15,7 @@ class CallTypeItemWidget extends StatefulWidget {
 }
 
 class _CallTypeItemWidgetState extends State<CallTypeItemWidget> {
-  var _isAudio = true;
+  bool _isAudio = true;
 
   @override
   void initState() {

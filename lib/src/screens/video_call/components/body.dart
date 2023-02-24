@@ -13,9 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class Body extends StatefulWidget {
-  final bool isVibrationOn;
   final EasyPrankCallController controller;
-  const Body(this.isVibrationOn, this.controller, {super.key});
+  const Body(this.controller, {super.key});
 
   @override
   State<Body> createState() => _BodyState();
@@ -33,7 +32,9 @@ class _BodyState extends State<Body> {
     MyAudioPlayer.instance.playRingtone();
     callRingingTimer = Timer(const Duration(minutes: 1), _onPressedEnd);
 
-    if (widget.isVibrationOn) MyVibrator.ringtoneVibrate();
+    if (widget.controller.callSetting.isVibrationOn) {
+      MyVibrator.ringtoneVibrate();
+    }
     _videoInit();
   }
 
@@ -58,7 +59,6 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = widget.controller;
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -76,7 +76,7 @@ class _BodyState extends State<Body> {
                 ),
               )
             : Image.asset(
-                controller.avatarImgPath,
+                widget.controller.avatarImgPath,
                 fit: BoxFit.cover,
               ),
         DecoratedBox(
@@ -88,7 +88,7 @@ class _BodyState extends State<Body> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  controller.title,
+                  widget.controller.title,
                   style: Theme.of(context)
                       .textTheme
                       .displaySmall!
@@ -116,6 +116,7 @@ class _BodyState extends State<Body> {
                         duration: const Duration(milliseconds: 300),
                         child: CallIncomingContainer(
                           onPressAccept: _onPressedAccept,
+                          onPressEnd: _onPressedEnd,
                         ),
                       ),
                       IgnorePointer(
@@ -141,11 +142,8 @@ class _BodyState extends State<Body> {
   }
 
   void onPressDialButton() {
-    final controller = widget.controller;
-    if (controller.onTapEvent != null) {
-      controller.onTapEvent!
-          .call(context, PrankCallEventAction.callScreenEvent);
-    }
+    widget.controller.onTapEvent
+        ?.call(context, PrankCallEventAction.callScreenEvent);
   }
 
   Widget _getCallStatus() {
@@ -166,6 +164,7 @@ class _BodyState extends State<Body> {
   }
 
   void _onPressedEnd() {
+    _stopServices();
     setState(() {
       _isCallEnded = true;
       _videoController?.pause();
@@ -173,7 +172,7 @@ class _BodyState extends State<Body> {
 
     Future.delayed(const Duration(seconds: 3), () {
       widget.controller.onTapEvent?.call(context, PrankCallEventAction.callEnd);
-      Navigator.pop(context);
+      if (Navigator.canPop(context)) Navigator.pop(context);
     });
   }
 

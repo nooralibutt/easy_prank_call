@@ -1,4 +1,7 @@
+import 'package:easy_prank_call/src/models/call_settings_model.dart';
 import 'package:easy_prank_call/src/models/enums.dart';
+import 'package:easy_prank_call/src/screens/audio_call/audio_call_screen.dart';
+import 'package:easy_prank_call/src/screens/video_call/video_call_screen.dart';
 import 'package:flutter/material.dart';
 
 typedef PlacementBuilder = Widget Function(BuildContext, PrankCallPlacement);
@@ -16,6 +19,7 @@ class EasyPrankCallController extends InheritedWidget {
     this.onTapEvent,
     required this.context,
     required this.ringtonePath,
+    required this.callSetting,
   });
   final String? ringtonePath;
 
@@ -37,6 +41,13 @@ class EasyPrankCallController extends InheritedWidget {
   /// [onTapEvent] will be call on every event preformed by the user
   final EventActionCallback? onTapEvent;
 
+  /// This [callSetting] is used for call
+  /// [isVibrationOn] is by default is true
+  /// [isAudioCall] is by default is true
+  /// [callScheduleDuration] is by default is 0.s, it will use to launch call
+  /// after the given duration
+  final CallSetting callSetting;
+
   final BuildContext context;
 
   static EasyPrankCallController? maybeOf(BuildContext context) {
@@ -53,4 +64,10 @@ class EasyPrankCallController extends InheritedWidget {
   @override
   bool updateShouldNotify(EasyPrankCallController oldWidget) =>
       title != oldWidget.title;
+
+  Widget getCallScreen() {
+    return callSetting.callType == EasyCallType.audio
+        ? AudioCallScreen(controller: this)
+        : VideoCallScreen(controller: this);
+  }
 }

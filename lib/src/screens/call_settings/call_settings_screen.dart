@@ -1,18 +1,15 @@
 import 'package:easy_prank_call/easy_prank_call.dart';
 import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
-import 'package:easy_prank_call/src/models/call_settings_model.dart';
-import 'package:easy_prank_call/src/screens/audio_call/audio_call_screen.dart';
 import 'package:easy_prank_call/src/screens/call_settings/components/call_type_item_widget.dart';
 import 'package:easy_prank_call/src/screens/call_settings/components/timer_setting_item_widget.dart';
 import 'package:easy_prank_call/src/screens/call_settings/components/vibrate_item_widget.dart';
-import 'package:easy_prank_call/src/screens/video_call/video_call_screen.dart';
 import 'package:easy_prank_call/src/widgets/maybe_close_button.dart';
 import 'package:flutter/material.dart';
 
 class CallSettingsScreen extends StatefulWidget {
   static const String routeName = "/callSettings";
-
-  const CallSettingsScreen({super.key});
+  final EasyPrankCallController controller;
+  const CallSettingsScreen(this.controller, {super.key});
 
   @override
   State<CallSettingsScreen> createState() => _CallSettingsScreenState();
@@ -24,9 +21,15 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
   var _isVibrating = true;
 
   @override
-  Widget build(BuildContext context) {
-    final controller = EasyPrankCallController.of(context);
+  void initState() {
+    super.initState();
+    _isAudio = widget.controller.callSetting.callType == EasyCallType.audio;
+    _isVibrating = widget.controller.callSetting.isVibrationOn;
+    _durationSelected = widget.controller.callSetting.callScheduleDuration;
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -36,7 +39,7 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
             children: [
               Row(
                 children: [
-                  MaybeCloseButton(controller.parentContext),
+                  MaybeCloseButton(widget.controller.parentContext),
                   Text(
                     'Call Settings',
                     textAlign: TextAlign.center,
@@ -49,7 +52,10 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
               ),
               TimerSettingItemWidget(
                   onChange: (duration) => _durationSelected = duration),
-              CallTypeItemWidget(onChange: (isAudio) => _isAudio = isAudio),
+              CallTypeItemWidget(
+                onChange: (isAudio) => _isAudio = isAudio,
+                isAudio: _isAudio,
+              ),
               VibrateItemWidget(
                   isVibrating: _isVibrating,
                   onChange: (isVibrating) => _isVibrating = isVibrating),
@@ -58,11 +64,11 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
                 child: ElevatedButton.icon(
                   onPressed: _pressedCall,
                   icon: const Icon(Icons.call),
-                  label: const Text('Schedule Prank Call'),
+                  label: const Text('Prank Call'),
                 ),
               ),
-              if (controller.placementBuilder != null)
-                controller.placementBuilder!
+              if (widget.controller.placementBuilder != null)
+                widget.controller.placementBuilder!
                     .call(context, PrankCallPlacement.callSettingsBottom),
             ],
           ),
@@ -71,21 +77,17 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
     );
   }
 
-  Future<void> _pressedCall() async {
-    if (_durationSelected != const Duration(seconds: 0)) {
-      // NotificationManager.instance
-      //     .scheduleNotificationOnScheduleCall(_durationSelected);
-    }
-    _moveToCallScreen();
-  }
+  void _pressedCall() {
+    // if (_durationSelected != const Duration(seconds: 0)) {
+    // NotificationManager.instance
+    //     .scheduleNotificationOnScheduleCall(_durationSelected);
+    // }
 
-  void _moveToCallScreen() {
-    final controller = EasyPrankCallController.of(context);
-    final model =
-        CallSettingsModel(_durationSelected, _isVibrating, controller);
-    final screen = _isAudio
-        ? AudioCallScreen(model: model)
-        : VideoCallScreen(model: model);
+    widget.controller.callSetting.callType =
+        _isAudio ? EasyCallType.audio : EasyCallType.video;
+    widget.controller.callSetting.isVibrationOn = _isVibrating;
+    widget.controller.callSetting.callScheduleDuration = _durationSelected;
+    final screen = widget.controller.getCallScreen();
     Navigator.push(context,
         MaterialPageRoute(builder: (_) => screen, fullscreenDialog: true));
   }

@@ -12,9 +12,8 @@ import 'package:easy_prank_call/src/widgets/dial_user_pic.dart';
 import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {
-  final bool isVibrationOn;
   final EasyPrankCallController controller;
-  const Body(this.isVibrationOn, this.controller, {super.key});
+  const Body(this.controller, {super.key});
 
   @override
   State<Body> createState() => _BodyState();
@@ -30,7 +29,9 @@ class _BodyState extends State<Body> {
     MyAudioPlayer.instance.playRingtone();
     callRingingTimer = Timer(const Duration(minutes: 1), _onPressedEnd);
 
-    if (widget.isVibrationOn) MyVibrator.ringtoneVibrate();
+    if (widget.controller.callSetting.isVibrationOn) {
+      MyVibrator.ringtoneVibrate();
+    }
 
     super.initState();
   }
@@ -44,14 +45,13 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = widget.controller;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             Text(
-              controller.title,
+              widget.controller.title,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             AnimatedOpacity(
@@ -61,8 +61,8 @@ class _BodyState extends State<Body> {
             ),
             const VerticalSpacing(),
             _isCallAccepted
-                ? DialUserPic(image: controller.avatarImgPath)
-                : DialUserPicAnimated(image: controller.avatarImgPath),
+                ? DialUserPic(image: widget.controller.avatarImgPath)
+                : DialUserPicAnimated(image: widget.controller.avatarImgPath),
             const Spacer(),
             AnimatedOpacity(
               duration: const Duration(milliseconds: 300),
@@ -75,6 +75,7 @@ class _BodyState extends State<Body> {
                     duration: const Duration(milliseconds: 300),
                     child: CallIncomingContainer(
                       onPressAccept: _onPressedAccept,
+                      onPressEnd: _onPressedEnd,
                     ),
                   ),
                   AnimatedOpacity(
@@ -96,11 +97,8 @@ class _BodyState extends State<Body> {
   }
 
   void onPressDialButton() {
-    final controller = widget.controller;
-    if (controller.onTapEvent != null) {
-      controller.onTapEvent!
-          .call(context, PrankCallEventAction.callScreenEvent);
-    }
+    widget.controller.onTapEvent
+        ?.call(context, PrankCallEventAction.callScreenEvent);
   }
 
   Widget _getCallStatus() {
@@ -126,8 +124,8 @@ class _BodyState extends State<Body> {
     setState(() => _isCallEnded = true);
 
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pop(context);
       widget.controller.onTapEvent?.call(context, PrankCallEventAction.callEnd);
+      if (Navigator.canPop(context)) Navigator.pop(context);
     });
   }
 

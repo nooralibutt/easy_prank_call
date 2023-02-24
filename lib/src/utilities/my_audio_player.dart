@@ -9,10 +9,10 @@ class MyAudioPlayer {
   AudioPlayer? _ringtonePlayer;
 
   Future<void> init(String? ringtonePath) {
-    if (_ringtonePlayer != null) return Future.value();
+    if (ringtonePath == null || _ringtonePlayer != null) return Future.value();
 
     _ringtonePlayer = AudioPlayer();
-    if (ringtonePath!.startsWith('http')) {
+    if (ringtonePath.startsWith('http')) {
       return _ringtonePlayer!
           .setAudioSource(AudioSource.uri(Uri.parse(ringtonePath)));
     } else {

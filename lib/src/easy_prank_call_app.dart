@@ -1,4 +1,5 @@
 import 'package:easy_prank_call/src/easy_prank_call_controller.dart';
+import 'package:easy_prank_call/src/models/enums.dart';
 import 'package:easy_prank_call/src/screens/call_settings/call_settings_screen.dart';
 import 'package:easy_prank_call/src/utilities/my_audio_player.dart';
 import 'package:easy_prank_call/src/utilities/size_config.dart';
@@ -20,7 +21,14 @@ class EasyPrankCallApp extends StatelessWidget {
   /// [onTapEvent] will be call on every event preformed by the user
   final EventActionCallback? onTapEvent;
 
+  /// You can pass your own ringtone. It could be a url or asset path
   final String? ringtonePath;
+
+  /// [isVibrationOn] is by default is true
+  final bool isVibrationOn;
+
+  /// [callType] is by default is true
+  final EasyCallType callType;
 
   const EasyPrankCallApp({
     Key? key,
@@ -30,6 +38,8 @@ class EasyPrankCallApp extends StatelessWidget {
     this.onTapEvent,
     this.placementBuilder,
     this.ringtonePath,
+    this.isVibrationOn = true,
+    this.callType = EasyCallType.audio,
   }) : super(key: key);
 
   @override
@@ -46,6 +56,8 @@ class EasyPrankCallApp extends StatelessWidget {
       avatarImgPath: avatarImgPath,
       videoPath: videoPath,
       ringtonePath: ringtonePath,
+      isVibrationOn: isVibrationOn,
+      callType: callType,
       child: const CallSettingsScreen(),
     );
   }

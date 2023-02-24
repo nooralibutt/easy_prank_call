@@ -26,6 +26,7 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final controller = EasyPrankCallController.of(context);
+    _isAudio = controller.callType == EasyCallType.audio;
 
     return Scaffold(
       body: SafeArea(
@@ -49,7 +50,10 @@ class _CallSettingsScreenState extends State<CallSettingsScreen> {
               ),
               TimerSettingItemWidget(
                   onChange: (duration) => _durationSelected = duration),
-              CallTypeItemWidget(onChange: (isAudio) => _isAudio = isAudio),
+              CallTypeItemWidget(
+                onChange: (isAudio) => _isAudio = isAudio,
+                isAudio: _isAudio,
+              ),
               VibrateItemWidget(
                   isVibrating: _isVibrating,
                   onChange: (isVibrating) => _isVibrating = isVibrating),

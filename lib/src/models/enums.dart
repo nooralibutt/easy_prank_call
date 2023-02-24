@@ -6,3 +6,5 @@ enum PrankCallEventAction {
   callEnd,
   callScreenEvent,
 }
+
+enum EasyCallType { audio, video }

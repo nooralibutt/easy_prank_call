@@ -14,6 +14,8 @@ class EasyPrankCallController extends InheritedWidget {
     required super.child,
     this.placementBuilder,
     this.onTapEvent,
+    required this.isVibrationOn,
+    required this.callType,
     required this.context,
     required this.ringtonePath,
   });
@@ -36,6 +38,12 @@ class EasyPrankCallController extends InheritedWidget {
 
   /// [onTapEvent] will be call on every event preformed by the user
   final EventActionCallback? onTapEvent;
+
+  /// [isVibrationOn] is by default is true
+  final bool isVibrationOn;
+
+  /// [isAudioCall] is by default is true
+  final EasyCallType callType;
 
   final BuildContext context;
 

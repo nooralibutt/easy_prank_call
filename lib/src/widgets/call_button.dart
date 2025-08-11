@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 class CallButton extends StatelessWidget {
   const CallButton({
-    Key? key,
+    super.key,
     required this.iconData,
     required this.text,
     required this.press,
-  }) : super(key: key);
+  });
 
   final IconData iconData;
   final String text;

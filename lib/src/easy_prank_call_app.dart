@@ -41,7 +41,7 @@ class EasyPrankCallApp extends StatelessWidget {
   final EasyCallType callType;
 
   const EasyPrankCallApp({
-    Key? key,
+    super.key,
     required this.title,
     this.videoPath,
     required this.avatarImgPath,
@@ -52,7 +52,7 @@ class EasyPrankCallApp extends StatelessWidget {
     this.isVibrationOn = true,
     this.callType = EasyCallType.audio,
     this.callScheduleDuration = const Duration(seconds: 0),
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -60,31 +60,35 @@ class EasyPrankCallApp extends StatelessWidget {
     if (ringtonePath != null) MyAudioPlayer.instance.init(ringtonePath);
 
     final callSetting = CallSetting(
-        callScheduleDuration: callScheduleDuration,
-        callType: callType,
-        isVibrationOn: isVibrationOn);
+      callScheduleDuration: callScheduleDuration,
+      callType: callType,
+      isVibrationOn: isVibrationOn,
+    );
 
     return EasyPrankCallController(
-        title: title,
-        parentContext: context,
-        placementBuilder: placementBuilder,
-        onTapEvent: onTapEvent,
-        context: context,
-        avatarImgPath: avatarImgPath,
-        videoPath: videoPath,
-        ringtonePath: ringtonePath,
-        callSetting: callSetting,
-        child: _moveToCallScreen());
+      title: title,
+      parentContext: context,
+      placementBuilder: placementBuilder,
+      onTapEvent: onTapEvent,
+      context: context,
+      avatarImgPath: avatarImgPath,
+      videoPath: videoPath,
+      ringtonePath: ringtonePath,
+      callSetting: callSetting,
+      child: _moveToCallScreen(),
+    );
   }
 
   Widget _moveToCallScreen() {
-    return Builder(builder: (context) {
-      final controller = EasyPrankCallController.of(context);
-      if (skipCallSettings) {
-        return controller.getCallScreen();
-      } else {
-        return CallSettingsScreen(controller);
-      }
-    });
+    return Builder(
+      builder: (context) {
+        final controller = EasyPrankCallController.of(context);
+        if (skipCallSettings) {
+          return controller.getCallScreen();
+        } else {
+          return CallSettingsScreen(controller);
+        }
+      },
+    );
   }
 }

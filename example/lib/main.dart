@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
       callType: EasyCallType.video,
       callScheduleDuration: Duration(seconds: 7),
       skipCallSettings: true,
-      ringtonePath: 'YOUR_AUDIO_URL / YOUR_AUDIO_ASSET',
+      ringtonePath: 'assets/audio/ios_call_opening.mp3',
     );
   }
 
@@ -85,8 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
     switch (placement) {
       case PrankCallPlacement.callSettingsBottom:
         return Container(height: 50, width: double.infinity, color: Colors.red);
-      default:
-        return const SizedBox();
     }
   }
 

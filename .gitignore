@@ -76,3 +76,4 @@ build/
 .idea/libraries/Dart_SDK.xml
 .idea/modules.xml
 .idea/.gitignore
+pubspec.lock

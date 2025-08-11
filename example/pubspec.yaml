@@ -4,14 +4,14 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.0 <3.0.0'
+  sdk: ^3.5.3
 
 dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.5
-  easy_ads_flutter: ^2.1.0
+  cupertino_icons: ^1.0.8
+  easy_ads_flutter: ^2.8.1
   easy_prank_call:
     path: ../
 
@@ -19,7 +19,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.1
+  flutter_lints: ^6.0.0
 
 # The following section is specific to Flutter packages.
 flutter:

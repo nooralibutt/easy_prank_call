@@ -1,3 +1,6 @@
+## 3.0.0
+* Updated dependencies
+
 ## 2.1.0
 * Support for direct call
 * Add Setting to schedule direct call

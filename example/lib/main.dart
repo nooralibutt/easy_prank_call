@@ -15,9 +15,13 @@ Future<void> main() async {
     unityTestMode: true,
     isAgeRestrictedUserForApplovin: false,
     admobConfiguration: RequestConfiguration(
-        testDeviceIds: [], maxAdContentRating: MaxAdContentRating.pg),
-    adMobAdRequest:
-        const AdRequest(nonPersonalizedAds: false, keywords: <String>[]),
+      testDeviceIds: [],
+      maxAdContentRating: MaxAdContentRating.pg,
+    ),
+    adMobAdRequest: const AdRequest(
+      nonPersonalizedAds: false,
+      keywords: <String>[],
+    ),
   );
   runApp(const MyApp());
 }
@@ -62,8 +66,9 @@ class _MyHomePageState extends State<MyHomePage> {
         'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
     Navigator.of(context).push(
       MaterialPageRoute(
-          fullscreenDialog: true,
-          builder: (_) => Scaffold(body: getMainWidget(path))),
+        fullscreenDialog: true,
+        builder: (_) => Scaffold(body: getMainWidget(path)),
+      ),
     );
   }
 

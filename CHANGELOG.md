@@ -1,3 +1,7 @@
+## 26.0.0
+* Updated dependencies
+* Updated example project
+
 ## 3.0.0
 * Updated dependencies
 

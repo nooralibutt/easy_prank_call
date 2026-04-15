@@ -1,5 +1,6 @@
 ## 26.0.1
 * Updated dependencies
+* Removed Vibrator Package and added manual vibration
 
 ## 26.0.0
 * Updated dependencies

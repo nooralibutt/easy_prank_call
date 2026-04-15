@@ -7,13 +7,13 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.10.3
+  sdk: ^3.11.4
 dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.8
-  easy_ads_flutter: ^26.0.0
+  cupertino_icons: ^1.0.9
+  easy_ads_flutter: ^26.3.12
   easy_prank_call:
     path: ../
 

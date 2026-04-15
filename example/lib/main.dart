@@ -10,10 +10,6 @@ Future<void> main() async {
 
   await EasyAds.instance.initialize(
     const TestAdIdManager(),
-    fbiOSAdvertiserTrackingEnabled: true,
-    fbTestMode: true,
-    unityTestMode: true,
-    isAgeRestrictedUserForApplovin: false,
     admobConfiguration: RequestConfiguration(
       testDeviceIds: [],
       maxAdContentRating: MaxAdContentRating.pg,
@@ -22,6 +18,7 @@ Future<void> main() async {
       nonPersonalizedAds: false,
       keywords: <String>[],
     ),
+    autoLoadAds: true,
   );
   runApp(const MyApp());
 }
